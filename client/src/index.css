@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*-----CONFIG-----*/
+* {
+  font-family: 'Poppins', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  @apply box-border;
+}
+*::-webkit-scrollbar {
+  @apply w-2 h-2;
+}
+*::-webkit-scrollbar-track,
+*::-webkit-scrollbar-corner {
+  @apply bg-transparent;
+}
+*::-webkit-scrollbar-thumb {
+  @apply bg-gray-500 hover:bg-gray-400 rounded-full;
+}
+
+body {
+  overflow: overlay;
+  @apply bg-gray-600 scroll-smooth;
+}
+
+.gradient-primary {
+  background: rgb(35, 17, 105);
+  background: linear-gradient(
+    185deg,
+    rgba(35, 17, 105, 1) 0%,
+    rgba(35, 17, 105, 1) 50%,
+    rgba(52, 38, 132, 1) 85%,
+    rgba(54, 67, 146, 1) 100%
+  );
+}
+.no-scroll {
+  overflow: hidden;
+}
+.monospace-font {
+  font-family: 'Inconsolata', monospace;
+}
+
+/*-----COMPONENTS-----*/
+#error {
+  grid-area: 1 / 1;
+  @apply px-[11px] py-[5px] text-red-500 bg-red-100 border-2 border-red-400 rounded-lg text-sm;
+}
+#success {
+  grid-area: 1 / 1;
+  @apply px-[11px] py-[5px] text-green-500 bg-green-100 border-2 border-green-400 rounded-lg text-sm;
+}
+
+/*-----ELEMENTS-----*/
+.app-screen {
+  min-height: calc(100vh - 116px);
+  @apply overflow-hidden text-white;
+}
+.app-hero-screen {
+  @apply h-screen text-white;
+}
+.app-container {
+  @apply xl:container;
+}
+
+#product-section,
+#contact-section {
+  min-height: calc(100vh - 64px);
+}
+
+/*-----BREAKPOINTS-----*/
+/*from sm*/
+@media (min-width: 640px) {
+}
+/*from md*/
+@media (min-width: 768px) {
+  .app-screen {
+    min-height: calc(100vh - 56px);
+  }
+
+  #product-section,
+  #contact-section {
+    min-height: calc(100vh - 96px);
+  }
+}
+/*from lg*/
+@media (min-width: 1024px) {
+}
+/*from xl*/
+@media (min-width: 1280px) {
+}

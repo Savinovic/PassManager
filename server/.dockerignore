@@ -1,0 +1,12 @@
+node_modules/
+dist/
+build/
+coverage/
+Dockerfile
+docker-compose.dev.yml
+docker-compose.test.integration.yml
+docker-compose.yml
+.dockerignore
+.gitignore
+.git
+.DS_Store

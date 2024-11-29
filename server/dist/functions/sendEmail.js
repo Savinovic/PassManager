@@ -1,0 +1,22 @@
+import createError from 'http-errors';
+import { log } from '../config/utilities.js';
+import transporter from '../config/nodemailerOptions.js';
+const sendEmail = (message) => {
+    return new Promise((resolve, reject) => {
+        const mailOptions = {
+            from: message.from,
+            to: message.to,
+            subject: message.subject,
+            text: message.text,
+            html: message.html,
+        };
+        transporter.sendMail(mailOptions, error => {
+            if (error) {
+                log.error(error);
+                return reject(createError(500, 'Error during sending an email.'));
+            }
+            return resolve();
+        });
+    });
+};
+export default sendEmail;
