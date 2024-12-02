@@ -5,7 +5,9 @@ import { RiHashtag, RiLockPasswordFill } from 'react-icons/ri'
 import { FaEye, FaEyeSlash, FaEdit, FaTrashAlt } from 'react-icons/fa'
 import { useAppSelector, useAppDispatch } from '../../features/store'
 import { getUserPassword, idPasswordReset } from '../../features/passwordSlices/getUserPassword'
+import { getTotpSecret } from '../../api/axiosProtected'
 import { tr } from '../../translations/translations'
+import totp from 'otplib'
 
 export interface ListedPasswordObject {
   _id: string
@@ -32,6 +34,8 @@ const ListedPassword = (props: ListedPasswordProps) => {
 
   const [passwordVisible, setPasswordVisible] = useState(false)
   const [passwordString, setPasswordString] = useState('')
+  const [totpCode, setTotpCode] = useState('')
+  const [totpVisible, setTotpVisible] = useState(false)
 
   //handlers
   const showPasswordHandler = () => {
@@ -74,7 +78,25 @@ const ListedPassword = (props: ListedPasswordProps) => {
 
   //useEffects
   useEffect(() => {
-    return () => {
+    let interval: NodeJS.Timeout;
+
+    const fetchAndGenerateTotp = async () => {
+      try {
+        const secret = await getTotpSecret(props.listedPassword._id);
+        setTotpVisible(true);
+        const generateCode = () => {
+          const code = totp.generate(secret);
+          setTotpCode(code);
+        };
+        generateCode();
+        interval = setInterval(generateCode, 30000); // Genera un nuovo TOTP ogni 30 secondi
+      } catch (error) {
+        console.error('Error generating TOTP:', error);
+      }
+    };
+
+    fetchAndGenerateTotp();
+    return () =>  { 
       getUserPasswordAbort1.current && getUserPasswordAbort1.current()
       getUserPasswordAbort2.current && getUserPasswordAbort2.current()
     }
@@ -163,6 +185,19 @@ const ListedPassword = (props: ListedPasswordProps) => {
           {tr('listedPassDelete', language)}
         </button>
       </div>
+      {totpVisible && (
+        <div className="mt-4">
+          <label className="block text-sm font-medium text-gray-700">TOTP Code:</label>
+          <div className="mt-1">
+            <input
+              type="text"
+              readOnly
+              value={totpCode}
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
+            />
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -99,6 +99,21 @@ const deleteUserPassword = async (req: Request, res: Response) => {
 }
 
 
+// GET - /passwords/:id/getTotpSecret
+const getTotpSecret = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params
+    const passwordEntry = await Password.findById(id)
+    if (!passwordEntry) return res.status(404).send({ message: 'Password entry not found' })
+
+    if (!passwordEntry.totpSecret) return res.status(400).send({ message: 'No TOTP configured for this entry' })
+
+    return res.status(200).send({ totpSecret: passwordEntry.totpSecret })
+  } catch (error) {
+    console.error('Error getting TOTP secret:', error)
+    return res.status(500).send({ message: 'Internal server error' })
+  }
+}
 
 
 
@@ -151,4 +166,4 @@ const generateTotpCode = async (req: Request, res: Response) => {
 
 
 
-export { getUserPasswords, getUserPassword, createUserPassword, updateUserPassword, deleteUserPassword, setTotpSecretForPassword }
+export { getUserPasswords, getUserPassword, getTotpSecret, createUserPassword, updateUserPassword, deleteUserPassword, setTotpSecretForPassword }
