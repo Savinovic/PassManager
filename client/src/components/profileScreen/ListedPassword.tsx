@@ -7,7 +7,7 @@ import { useAppSelector, useAppDispatch } from '../../features/store'
 import { getUserPassword, idPasswordReset } from '../../features/passwordSlices/getUserPassword'
 import { getTotpSecret } from '../../api/axiosProtected'
 import { tr } from '../../translations/translations'
-import totp from 'otplib'
+import { totp } from 'otplib'
 
 export interface ListedPasswordObject {
   _id: string
