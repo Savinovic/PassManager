@@ -5,7 +5,7 @@ import { RiHashtag, RiLockPasswordFill } from 'react-icons/ri'
 import { FaEye, FaEyeSlash, FaEdit, FaTrashAlt } from 'react-icons/fa'
 import { useAppSelector, useAppDispatch } from '../../features/store'
 import { getUserPassword, idPasswordReset } from '../../features/passwordSlices/getUserPassword'
-import { getTotpSecret } from '../../api/axiosProtected'
+import { getTotpSecret, generateTotpCode } from '../../api/axiosProtected'
 import { tr } from '../../translations/translations'
 import { totp } from 'otplib'
 
@@ -75,27 +75,18 @@ const ListedPassword = (props: ListedPasswordProps) => {
     props.setPasswordToDelete({ id: props.listedPassword._id, name: props.listedPassword.name })
     props.setConfirmDeleteModalIsOpen(true)
   }
+  
+  const getTotpCodeHandler = async () => {
+    try {
+      const code = await generateTotpCode(props.listedPassword._id);
+    } catch (error) {
+      console.error('Error generating TOTP code:', error);
+    }
+  };
+
 
   //useEffects
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-
-    const fetchAndGenerateTotp = async () => {
-      try {
-        const secret = await getTotpSecret(props.listedPassword._id);
-        setTotpVisible(true);
-        const generateCode = () => {
-          const code = totp.generate(secret);
-          setTotpCode(code);
-        };
-        generateCode();
-        interval = setInterval(generateCode, 30000); // Genera un nuovo TOTP ogni 30 secondi
-      } catch (error) {
-        console.error('Error generating TOTP:', error);
-      }
-    };
-
-    fetchAndGenerateTotp();
+  useEffect(() => {     
     return () =>  { 
       getUserPasswordAbort1.current && getUserPasswordAbort1.current()
       getUserPasswordAbort2.current && getUserPasswordAbort2.current()
@@ -103,7 +94,7 @@ const ListedPassword = (props: ListedPasswordProps) => {
   }, [getUserPasswordAbort1, getUserPasswordAbort2])
 
   return (
-    <div className="flex flex-col justify-between px-3 pt-2 pb-3 shadow-md md:pb-2 rounded-2xl bg-privpass-400 md:flex-row">
+    <div className="relative flex-auto flex-col justify-between px-3 pt-2 pb-3 shadow-md md:pb-2 rounded-2xl bg-privpass-400 md:flex-row">
       <div className="flex-1 min-w-0 mb-2 md:mr-4 md:mb-0">
         <div className="mb-2">
           <div className="flex items-center text-xs">
@@ -147,7 +138,7 @@ const ListedPassword = (props: ListedPasswordProps) => {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                {'****************'}
+                {'************'}
               </Transition>
               <Transition
                 className="absolute top-0 left-0 h-14 pt-[14px] pb-[6px] select-all tracking-widest monospace-font"
@@ -163,10 +154,60 @@ const ListedPassword = (props: ListedPasswordProps) => {
               </Transition>
             </div>
           </div>
+          <div className="md:mb-[-8px]">
+          <div className="text-xs mb-[-7px] flex items-center">
+            <RiLockPasswordFill className="mr-[2px]" />
+            {tr('totpCode', language)}
+          </div>
+
+          <div className="flex items-center text-lg">
+            <button
+              disabled={loading || loading2}
+              className="relative flex-none w-8 h-8 p-2 mr-2 transition border rounded-full text-privpass-200 border-privpass-200 hover:border-privpass-100 hover:text-privpass-100 active:scale-95 disabled:hover:border-privpass-200 disabled:hover:text-privpass-200 disabled:cursor-default disabled:active:scale-100"
+              onClick={getTotpCodeHandler}
+            >
+              <FaEye
+                className={`absolute left-[6px] top-[6px] transition-opacity ${
+                  !totpVisible ? 'opacity-100' : 'opacity-0'
+                }`}
+              />
+              <FaEyeSlash
+                className={`absolute left-[6px] top-[6px] transition-opacity ${
+                  totpVisible ? 'opacity-100' : 'opacity-0'
+                }`}
+              />
+            </button>
+            <div className="relative w-full overflow-x-scroll overflow-y-hidden h-14">
+              <Transition
+                className="absolute top-0 left-0 pt-[17px] text-2xl h-14"
+                show={!totpVisible}
+                enter="ease-out duration-200"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="ease-in duration-100"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                {'************'}
+              </Transition>
+              <Transition
+                className="absolute top-0 left-0 h-14 pt-[14px] pb-[6px] select-all tracking-widest monospace-font"
+                show={totpVisible}
+                enter="ease-out duration-200"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="ease-in duration-100"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                {totpCode}
+              </Transition>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="flex md:flex-col md:justify-center md:mr-3">
+      <div className="absolute top-3 right-0 flex md:flex-col md:justify-center md:mr-3">
         <button
           disabled={loading || loading2}
           className="flex items-center justify-center w-24 px-4 py-2 mr-2 text-sm transition rounded-full md:mr-0 md:mb-2 bg-cyan-500 hover:bg-cyan-400 active:scale-95 disabled:hover:bg-cyan-500 disabled:cursor-default disabled:active:scale-100"
@@ -185,21 +226,9 @@ const ListedPassword = (props: ListedPasswordProps) => {
           {tr('listedPassDelete', language)}
         </button>
       </div>
-      {totpVisible && (
-        <div className="mt-4">
-          <label className="block text-sm font-medium text-gray-700">TOTP Code:</label>
-          <div className="mt-1">
-            <input
-              type="text"
-              readOnly
-              value={totpCode}
-              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
-            />
-          </div>
-        </div>
-      )}
     </div>
-  )
+  </div>
+    )
 }
 
 export default ListedPassword

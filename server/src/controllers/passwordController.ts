@@ -166,4 +166,4 @@ const generateTotpCode = async (req: Request, res: Response) => {
 
 
 
-export { getUserPasswords, getUserPassword, getTotpSecret, createUserPassword, updateUserPassword, deleteUserPassword, setTotpSecretForPassword }
+export { getUserPasswords, getUserPassword, getTotpSecret, createUserPassword, updateUserPassword, deleteUserPassword, setTotpSecretForPassword, generateTotpCode }

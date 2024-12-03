@@ -96,6 +96,8 @@
   "passStrength5": "very strong",
   "passStrengthShort": "too short",
 
+  "totpCode": "TOTP code:",
+
   "altProduct": "Product",
   "altContact": "Contact",
 
