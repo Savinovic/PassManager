@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import { totp } from 'otplib';
 import Password from '../models/passwordModel.js'
 import { createPasswordValidation, updatePasswordValidation } from '../validations/passwordValidation.js'
-import { encryptPassword, decryptPassword } from '../functions/encryptDecrypt.js'
+import { encryptPassword, decryptPassword, encryptSecret, decryptSecret } from '../functions/encryptDecrypt.js'
 import { NEW_PASSWORD_ADDED, PASSWORD_UPDATED, PASSWORD_DELETED } from '../constants/SuccessMessages.js'
 import { PASSWORD_DOES_NOT_EXIST, PASSWORD_NAME_ALREADY_EXISTS } from '../constants/ErrorMessages.js'
 
@@ -54,12 +54,15 @@ const createUserPassword = async (req: Request, res: Response) => {
   if (possibleDuplicates.length > 0) throw createError(409, PASSWORD_NAME_ALREADY_EXISTS)
 
   const { encryptedPassword, iv } = encryptPassword(validationResult.password)
+  const {encryptedSecret, ivS}=encryptSecret(validationResult.secret)
 
   const createPassword = new Password({
     addedBy: authenticatedUser.id,
     name: validationResult.name,
     encryptedPassword: encryptedPassword,
     iv: iv,
+    totpSecret: encryptedSecret,
+    ivS: ivS,
   })
 
   await createPassword.save()
@@ -113,11 +116,11 @@ const setTotpSecretForPassword = async (req: Request, res: Response) => {
     if (!passwordEntry) return res.status(404).send({ message: 'Password entry not found' });
 
     // Crittografa il segreto TOTP
-    const salt = await bcrypt.genSalt(10);
-    const hashedSecret = await bcrypt.hash(totpSecret, salt);
+    const {encryptedSecret, ivS}=encryptSecret(totpSecret)
 
     // Salva il segreto crittografato
-    passwordEntry.totpSecret = hashedSecret;
+    passwordEntry.totpSecret = encryptedSecret;
+    passwordEntry.ivS = ivS;
     await passwordEntry.save();
 
     return res.status(200).send({ message: 'TOTP secret set successfully' });
@@ -139,8 +142,10 @@ const generateTotpCode = async (req: Request, res: Response) => {
     // Verifica che ci sia un segreto TOTP configurato
     if (!passwordEntry.totpSecret) return res.status(400).send({ message: 'No TOTP configured for this entry' });
 
+    const {decryptedSecret } = decryptSecret({ encryptedSecret: passwordEntry.totpSecret, ivS: passwordEntry.ivS })
+
     // Genera un codice TOTP utilizzando il segreto decifrato
-    const totpCode = totp.generate(passwordEntry.totpSecret);
+    const totpCode = totp.generate(decryptedSecret);
 
     return res.status(200).send({ totpCode });
   } catch (error) {
@@ -151,4 +156,4 @@ const generateTotpCode = async (req: Request, res: Response) => {
 
 
 
-export { getUserPasswords, getUserPassword, createUserPassword, updateUserPassword, deleteUserPassword, setTotpSecretForPassword }
+export { getUserPasswords, getUserPassword, createUserPassword, updateUserPassword, deleteUserPassword, setTotpSecretForPassword, generateTotpCode}

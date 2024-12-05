@@ -8,6 +8,9 @@ import {
   createUserPassword,
   updateUserPassword,
   deleteUserPassword,
+  generateTotpCode,
+  setTotpSecretForPassword
+  
 } from '../controllers/passwordController.js'
 
 const router = express.Router()
@@ -18,5 +21,7 @@ router
   .post('/createUserPassword', isAuth, errorHandler(createUserPassword))
   .put('/updateUserPassword/:id', isValidId('id', null), isAuth, errorHandler(updateUserPassword))
   .delete('/deleteUserPassword/:id', isValidId('id', null), isAuth, errorHandler(deleteUserPassword))
+  .post('/passwords/:id/generateTotp', isValidId('id', null),errorHandler(generateTotpCode))
+  .put('/passwords/:id/setTotpSecret', isValidId('id', null), errorHandler(setTotpSecretForPassword))
 
 export default router
