@@ -84,7 +84,7 @@ const getTotpSecret = async (passwordId: string) => {
 
 export const generateTotpCode = async (passwordId: string) => {
   try {
-    const response = await axios.get(`/passwords/${passwordId}/generateTotp`);
+    const response = await axiosProtected.post(`/passwords/passwords/${passwordId}/generateTotp`);
     return response.data.totpCode;
   } catch (error) {
     console.error('Error generating TOTP code:', error);

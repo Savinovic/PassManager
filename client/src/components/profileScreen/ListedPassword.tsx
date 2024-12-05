@@ -4,8 +4,8 @@ import { Transition } from '@headlessui/react'
 import { RiHashtag, RiLockPasswordFill } from 'react-icons/ri'
 import { FaEye, FaEyeSlash, FaEdit, FaTrashAlt } from 'react-icons/fa'
 import { useAppSelector, useAppDispatch } from '../../features/store'
-import { getUserPassword, idPasswordReset } from '../../features/passwordSlices/getUserPassword'
-import { getTotpSecret, generateTotpCode } from '../../api/axiosProtected'
+import { getUserPassword, idPasswordReset} from '../../features/passwordSlices/getUserPassword'
+import { getTotpSecret, generateTotpCode} from '../../api/axiosProtected'
 import { tr } from '../../translations/translations'
 import { totp } from 'otplib'
 
@@ -79,10 +79,15 @@ const ListedPassword = (props: ListedPasswordProps) => {
   const getTotpCodeHandler = async () => {
     try {
       const code = await generateTotpCode(props.listedPassword._id);
+      console.log('TOTP code1:', code);
+      setTotpCode(code);
+      setTotpVisible(!totpVisible);
+      console.log('TOTP code:', totpCode);
     } catch (error) {
       console.error('Error generating TOTP code:', error);
     }
   };
+
 
 
   //useEffects
