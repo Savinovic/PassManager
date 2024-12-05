@@ -58,4 +58,4 @@ const decryptSecret = (encryption: { encryptedSecret: string; ivS: string }) => 
   return {decryptedSecret: decryptedSecret.toString()}
 }
 
-export { encryptSecret, decryptSecret }
+export { encryptSecret, decryptSecret}
