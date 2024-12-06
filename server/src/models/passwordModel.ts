@@ -10,6 +10,7 @@ interface Password {
   createdAt: number
   updatedAt: number
   totpSecret: string; // Aggiungi questa linea
+
 }
 
 const passwordSchema = new Schema<Password>(
@@ -20,6 +21,7 @@ const passwordSchema = new Schema<Password>(
     iv: { type: String, required: true },
     totpSecret: { type: String, default: null }, // Aggiungi questa linea
     ivS: { type: String, default: null },
+
   },
   {
     timestamps: true,
