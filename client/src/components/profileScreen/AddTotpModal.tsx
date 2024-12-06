@@ -9,6 +9,7 @@ import { useAppSelector, useAppDispatch } from '../../features/store'
 import { createUserPassword, successReset, errorReset } from '../../features/passwordSlices/createUserPassword'
 import { getUserPasswords } from '../../features/passwordSlices/getUserPasswords'
 import { addPasswordErrors } from '../../validations/passwordValidations'
+import { addSecretErrors } from '../../validations/totpValidations'
 
 import { createPasswordTotp } from '../../features/totpSlices/createPasswordTotp'
 import Success from '../universal/Success'
@@ -76,13 +77,13 @@ const AddTotpModal = (props: AddTotpModalProps) => {
               searchKeyword: searchParams.get('searchKeyword') || '',
               sortOrder: searchParams.get('sortOrder') || 'atoz',
             }) as unknown as AnyAction,
-          )
+         )
           getUserPasswordsAbort.current = getUserPasswordsPromise.abort
         } else {
           dispatch(successReset(null))
           dispatch(errorReset(null))
         }
-      })
+       })
       .catch((error: unknown) => error)
   }
 
@@ -133,7 +134,7 @@ const AddTotpModal = (props: AddTotpModalProps) => {
                 {/*modal header*/}
                 <Dialog.Title className="flex items-center justify-between w-full text-2xl text-gray-800">
                   <div className="flex items-center">
-                    <h2 className="font-semibold">{tr('addPassModalHeader', language)}</h2>
+                    <h2 className="font-semibold">{tr('addTotpModalHeader', language)}</h2>
                     <Loader isLoading={loading} styling="ml-2" />
                   </div>
 
@@ -153,84 +154,26 @@ const AddTotpModal = (props: AddTotpModalProps) => {
                   <Error isOpen={error && errorMessage !== '' ? true : false} message={errorMessage} styling="mx-1 mb-4" />
 
                   <div className="flex flex-col text-gray-800 md:mx-6">
-                    <label htmlFor="addName" className="mx-1 text-left">
-                      {tr('addPassModalName', language)}
+                    <label htmlFor="addSecret" className="mx-1 text-left">
+                      {tr('addTotpModalSecret', language)}
                     </label>
                     <input
-                      {...register('addName', addPasswordErrors.addName)}
-                      id="addName"
+                      {...register('addSecret', addSecretErrors.addSecret)}
+                      id="addSecret"
                       type="text"
-                      placeholder={tr('addPassModalNamePlaceholder', language)}
+                      placeholder={tr('addTotpModalSecretPlaceholder', language)}
                       className="px-3 py-2 m-1 border rounded-lg border-privpass-400 focus:outline-privpass-400"
                     />
 
                     <div className="grid mx-1">
                       <Error
                         isOpen={errors.addName?.type === 'required' ? true : false}
-                        message={tr(addPasswordErrors.addName.required.message, language)}
+                        message={tr(addSecretErrors.addSecret.required.message, language)}
                         styling="mt-1"
                       />
                       <Error
                         isOpen={errors.addName?.type === 'maxLength' ? true : false}
-                        message={tr(addPasswordErrors.addName.maxLength.message, language)}
-                        styling="mt-1"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="relative flex flex-col mt-3 text-gray-800 md:mx-6">
-                    <label htmlFor="addPassword" className="mx-1 text-left">
-                      {tr('addPassModalPassword', language)}
-                    </label>
-                    <div className="flex items-center">
-                      <input
-                        {...register('addPassword', addPasswordErrors.addPassword)}
-                        id="addPassword"
-                        type={passwordToShow ? 'text' : 'password'}
-                        placeholder={tr('addPassModalPasswordPlaceholder', language)}
-                        className="w-full px-3 py-2 my-1 ml-1 mr-2 border rounded-lg border-privpass-400 focus:outline-privpass-400"
-                      />
-                      <button
-                        type="button"
-                        className="relative flex-none p-2 mr-1 text-xl transition bg-white border rounded-full w-9 h-9 text-privpass-400 border-privpass-400 hover:border-privpass-400/80 hover:text-privpass-400/80 active:scale-95"
-                        onClick={() => setPasswordToShow(!passwordToShow)}
-                      >
-                        <FaEye
-                          className={`absolute left-[7px] top-[7px] transition-opacity ${
-                            !passwordToShow ? 'opacity-100' : 'opacity-0'
-                          }`}
-                        />
-                        <FaEyeSlash
-                          className={`absolute left-[7px] top-[7px] transition-opacity ${
-                            passwordToShow ? 'opacity-100' : 'opacity-0'
-                          }`}
-                        />
-                      </button>
-                    </div>
-
-                    <PasswordStrengthBar
-                      className="mt-[3px] ml-1 mr-12"
-                      password={watchAddPassword}
-                      minLength={1}
-                      scoreWords={[
-                        tr('passStrength1', language),
-                        tr('passStrength2', language),
-                        tr('passStrength3', language),
-                        tr('passStrength4', language),
-                        tr('passStrength5', language),
-                      ]}
-                      shortScoreWord={tr('passStrengthShort', language)}
-                    />
-
-                    <div className="grid mx-1">
-                      <Error
-                        isOpen={errors.addPassword?.type === 'required' ? true : false}
-                        message={tr(addPasswordErrors.addPassword.required.message, language)}
-                        styling="mt-1"
-                      />
-                      <Error
-                        isOpen={errors.addPassword?.type === 'maxLength' ? true : false}
-                        message={tr(addPasswordErrors.addPassword.maxLength.message, language)}
+                        message={tr(addSecretErrors.addSecret.maxLength.message, language)}
                         styling="mt-1"
                       />
                     </div>
@@ -244,7 +187,7 @@ const AddTotpModal = (props: AddTotpModalProps) => {
                     type="submit"
                     className="px-4 py-2 mr-2 text-white transition rounded-full bg-privpass-400 hover:opacity-80 active:scale-95 disabled:transition-opacity disabled:opacity-70 disabled:cursor-default disabled:active:scale-100"
                   >
-                    {tr('addPassModalSubmit', language)}
+                    {tr('addTotpModalSubmit', language)}
                   </button>
                   <button
                     disabled={loading}
@@ -252,7 +195,7 @@ const AddTotpModal = (props: AddTotpModalProps) => {
                     className="px-4 py-2 text-white transition rounded-full bg-privpass-400 hover:opacity-80 active:scale-95 disabled:transition-opacity disabled:opacity-70 disabled:cursor-default disabled:active:scale-100"
                     onClick={closeHandler}
                   >
-                    {success ? tr('addPassModalClose', language) : tr('addPassModalCancel', language)}
+                    {success ? tr('adTotpModalClose', language) : tr('addTotpModalCancel', language)}
                   </button>
                 </div>
               </Dialog.Panel>
@@ -264,4 +207,4 @@ const AddTotpModal = (props: AddTotpModalProps) => {
   )
 }
 
-export default AddPasswordModal
+export default AddTotpModal

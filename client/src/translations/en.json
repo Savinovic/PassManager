@@ -36,6 +36,13 @@
   "addPassModalClose": "Close",
   "addPassModalCancel": "Cancel",
 
+  "addTotpModalHeader": "Add TOTP",
+  "addTotpModalSecret": "Secret:",
+  "addTotpModalSecretPlaceholder": "Secret value",
+  "addTotpModalSubmit": "Add",
+  "addTotpModalClose": "Close",
+  "addTotpModalCancel": "Cancel",
+
   "confirmDelModalHeader": "Delete",
   "confirmDelModalMessage1": "Are you sure you want to delete password named: ",
   "confirmDelModalMessage2": "Saved password will be completely deleted form a database and cannot be restored.",
@@ -56,6 +63,7 @@
   "listedPassPasswordLabel": "Password:",
   "listedPassEdit": "Edit",
   "listedPassDelete": "Delete",
+  "listedPassTotp": "Add TOTP",
 
   "notFoundMessage": "There's nothing here!",
 

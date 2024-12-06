@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react'
 import { AnyAction } from 'redux'
 import { Transition } from '@headlessui/react'
 import { RiHashtag, RiLockPasswordFill } from 'react-icons/ri'
-import { FaEye, FaEyeSlash, FaEdit, FaTrashAlt } from 'react-icons/fa'
+import { FaEye, FaEyeSlash, FaEdit, FaTrashAlt, FaPlus } from 'react-icons/fa'
 import { useAppSelector, useAppDispatch } from '../../features/store'
 import { getUserPassword, idPasswordReset} from '../../features/passwordSlices/getUserPassword'
 import { getTotpSecret, generateTotpCode} from '../../api/axiosProtected'
@@ -16,10 +16,12 @@ export interface ListedPasswordObject {
 interface ListedPasswordProps {
   listedPassword: ListedPasswordObject
   setEditPasswordModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setAddTotpModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>
   setPasswordToEdit: React.Dispatch<React.SetStateAction<{ id: string; name: string; password: string }>>
   confirmDeleteModalIsOpen: boolean
   setConfirmDeleteModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>
   setPasswordToDelete: React.Dispatch<React.SetStateAction<{ id: string; name: string }>>
+  setPasswordToAddTotp: React.Dispatch<React.SetStateAction<{ id: string; name: string; password: string }>>
 }
 
 const ListedPassword = (props: ListedPasswordProps) => {
@@ -36,6 +38,8 @@ const ListedPassword = (props: ListedPasswordProps) => {
   const [passwordString, setPasswordString] = useState('')
   const [totpCode, setTotpCode] = useState('')
   const [totpVisible, setTotpVisible] = useState(false)
+  const [totpSecret, setTotpSecretState] = useState(''); // Stato per il segreto TOTP
+  const [isAddTotpModalOpen, setIsAddTotpModalOpen] = useState(false); // Stato per il modal AddTotpModal
 
   //handlers
   const showPasswordHandler = () => {
@@ -76,6 +80,22 @@ const ListedPassword = (props: ListedPasswordProps) => {
     props.setConfirmDeleteModalIsOpen(true)
   }
   
+  const openAddTotpModalHandler = () => {
+    const getUserPasswordPromise = dispatch(getUserPassword({ id: props.listedPassword._id }) as unknown as AnyAction)
+    getUserPasswordAbort2.current = getUserPasswordPromise.abort
+    getUserPasswordPromise
+      .unwrap()
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .then((payload: any) => {
+        props.setPasswordToAddTotp({ id: payload._id, name: props.listedPassword.name, password: payload.password })
+        props.setAddTotpModalIsOpen(true)
+        setIsAddTotpModalOpen(true);  
+        dispatch(idPasswordReset(null))
+
+      })
+      .catch((error: unknown) => error)
+  }
+
   const getTotpCodeHandler = async () => {
     
     try {
@@ -238,6 +258,15 @@ const ListedPassword = (props: ListedPasswordProps) => {
         >
           <FaEdit className="mr-2" />
           {tr('listedPassEdit', language)}
+        </button>
+
+        <button
+          disabled={loading || loading2}
+          className="flex items-center justify-center w-24 px-4 py-2 mr-2 text-sm transition rounded-full md:mr-0 md:mb-2 bg-privpass-700 hover:bg-privpass-800 active:scale-95 disabled:hover:bg-privpass-700 disabled:cursor-default disabled:active:scale-100"
+          onClick={openAddTotpModalHandler}
+        >
+          <FaPlus className="mr-2" />
+          {tr('listedPassTotp', language)}
         </button>
 
         <button
