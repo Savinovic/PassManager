@@ -11,6 +11,9 @@ export default {
         'privpass-400': '#364392',
         'privpass-500': '#342684',
         'privpass-600': '#231169',
+
+        'privpass-700': '#6A5ACD',
+        'privpass-800': '#7B68EE',
       },
     },
   },

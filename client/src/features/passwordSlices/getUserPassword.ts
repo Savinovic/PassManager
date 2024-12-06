@@ -62,5 +62,15 @@ export const getUserPasswordSlice: Slice<getUserPasswordState> = createSlice({
   },
 })
 
+export const generateTotpCode = createAsyncThunk('passwords/getUserPassword', async (sendData: getUserPasswordData, thunkAPI) => {
+  try {
+    const response = await axiosProtected.get(`/passwords/${sendData.id}/generateTotp`);
+    return response
+  } catch (error) {
+    console.error('Error generating TOTP code:', error);
+    throw error;
+  }
+});
+
 export const { idPasswordReset } = getUserPasswordSlice.actions
 export const getUserPasswordReducer = getUserPasswordSlice.reducer

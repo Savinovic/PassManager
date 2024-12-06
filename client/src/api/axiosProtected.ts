@@ -72,5 +72,26 @@ const resIntercept = axiosProtected.interceptors.response.use(
   axiosProtected.interceptors.response.eject(resIntercept)
 }*/
 
+const getTotpSecret = async (passwordId: string) => {
+  try {
+    const response = await axios.get(`/passwords/${passwordId}/getTotpSecret`)
+    return response.data.totpSecret
+  } catch (error) {
+    console.error('Error getting TOTP secret:', error)
+    throw error
+  }
+}
+
+export const generateTotpCode = async (passwordId: string) => {
+  try {
+    const response = await axiosProtected.post(`/passwords/passwords/${passwordId}/generateTotp`);
+    return response.data.totpCode;
+  } catch (error) {
+    console.error('Error generating TOTP code:', error);
+    throw error;
+  }
+};
+
 export { reqIntercept, resIntercept }
 export default axiosProtected
+export { getTotpSecret }

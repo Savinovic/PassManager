@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@property --percentage {
+  initial-value: 100%;
+  inherits: false;
+  syntax: "<percentage>";
+}
+
+.chart {
+  background: conic-gradient(blue var(--percentage), white 0);
+  border-radius: 50%;
+  width: 80vmin;
+  height: 80vmin;
+  animation: timer 30s infinite linear;
+}
+
+@keyframes timer {
+  to {
+    --percentage: 0%;
+  }
+}
