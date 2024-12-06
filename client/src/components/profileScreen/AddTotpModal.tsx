@@ -20,10 +20,12 @@ import { tr } from '../../translations/translations'
 interface AddTotpModalProps {
   isOpen: boolean
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  passwordToAddTotp: { id: string; name: string; password: string }
+  setPasswordToAddTotp: React.Dispatch<React.SetStateAction<{ id: string; name: string; password: string }>>
 }
 
 interface AddTotpFormValues {
-  addTotp: string
+  addSecret: string
 }
 
 const AddTotpModal = (props: AddTotpModalProps) => {
@@ -195,7 +197,7 @@ const AddTotpModal = (props: AddTotpModalProps) => {
                     className="px-4 py-2 text-white transition rounded-full bg-privpass-400 hover:opacity-80 active:scale-95 disabled:transition-opacity disabled:opacity-70 disabled:cursor-default disabled:active:scale-100"
                     onClick={closeHandler}
                   >
-                    {success ? tr('adTotpModalClose', language) : tr('addTotpModalCancel', language)}
+                    {success ? tr('addTotpModalClose', language) : tr('addTotpModalCancel', language)}
                   </button>
                 </div>
               </Dialog.Panel>
