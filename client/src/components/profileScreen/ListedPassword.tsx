@@ -88,7 +88,14 @@ const ListedPassword = (props: ListedPasswordProps) => {
     }
   };
 
-
+  const setTotpSecretHandler = async () => {
+    try {
+      const response = await setTotpSecret(props.listedPassword._id, totpSecret);
+      console.log('TOTP secret set successfully:', response);
+    } catch (error) {
+      console.error('Error setting TOTP secret:', error);
+    }
+  };
 
   //useEffects
   useEffect(() => {
@@ -105,8 +112,9 @@ const ListedPassword = (props: ListedPasswordProps) => {
     return () =>  { 
       getUserPasswordAbort1.current && getUserPasswordAbort1.current()
       getUserPasswordAbort2.current && getUserPasswordAbort2.current()
+      if (interval) clearInterval(interval);
     }
-  }, [getUserPasswordAbort1, getUserPasswordAbort2])
+  }, [getUserPasswordAbort1, getUserPasswordAbort2, props.listedPassword._id])
 
   return (
     <div className="relative flex-auto flex-col justify-between px-3 pt-2 pb-3 shadow-md md:pb-2 rounded-2xl bg-privpass-400 md:flex-row">
