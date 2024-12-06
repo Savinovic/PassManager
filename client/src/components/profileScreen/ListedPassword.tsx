@@ -91,7 +91,6 @@ const ListedPassword = (props: ListedPasswordProps) => {
         props.setAddTotpModalIsOpen(true)
         setIsAddTotpModalOpen(true);  
         dispatch(idPasswordReset(null))
-
       })
       .catch((error: unknown) => error)
   }
