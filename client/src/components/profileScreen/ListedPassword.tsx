@@ -77,9 +77,9 @@ const ListedPassword = (props: ListedPasswordProps) => {
   }
   
   const getTotpCodeHandler = async () => {
+    
     try {
       const code = await generateTotpCode(props.listedPassword._id);
-      console.log('TOTP code1:', code);
       setTotpCode(code);
       setTotpVisible(!totpVisible);
       console.log('TOTP code:', totpCode);
@@ -91,7 +91,17 @@ const ListedPassword = (props: ListedPasswordProps) => {
 
 
   //useEffects
-  useEffect(() => {     
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+
+    const fetchAndGenerateTotp = async () => {
+      try {
+        await getTotpCodeHandler();
+        interval = setInterval(getTotpCodeHandler, 30000); // Richiede un nuovo TOTP ogni 30 secondi
+      } catch (error) {
+        console.error('Error generating TOTP:', error);
+      }
+    };     
     return () =>  { 
       getUserPasswordAbort1.current && getUserPasswordAbort1.current()
       getUserPasswordAbort2.current && getUserPasswordAbort2.current()
