@@ -36,10 +36,10 @@ const ListedPassword = (props: ListedPasswordProps) => {
 
   const [passwordVisible, setPasswordVisible] = useState(false)
   const [passwordString, setPasswordString] = useState('')
-  const [totpCode, setTotpCode] = useState('')
-  const [totpVisible, setTotpVisible] = useState(false)
-  const [totpSecret, setTotpSecretState] = useState(''); // Stato per il segreto TOTP
-  const [isAddTotpModalOpen, setIsAddTotpModalOpen] = useState(false); // Stato per il modal AddTotpModal
+    const [totpCode, setTotpCode] = useState('')
+    const [totpVisible, setTotpVisible] = useState(false)
+    const [totpSecret, setTotpSecretState] = useState(''); // Stato per il segreto TOTP
+    const [isAddTotpModalOpen, setIsAddTotpModalOpen] = useState(false); // Stato per il modal AddTotpModal
 
   //handlers
   const showPasswordHandler = () => {
@@ -88,8 +88,8 @@ const ListedPassword = (props: ListedPasswordProps) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .then((payload: any) => {
         props.setPasswordToAddTotp({ id: payload._id, name: props.listedPassword.name, password: payload.password })
-        props.setAddTotpModalIsOpen(true)
-        setIsAddTotpModalOpen(true);  
+        props.setAddTotpModalIsOpen(true) 
+        setIsAddTotpModalOpen(true)
         dispatch(idPasswordReset(null))
       })
       .catch((error: unknown) => error)

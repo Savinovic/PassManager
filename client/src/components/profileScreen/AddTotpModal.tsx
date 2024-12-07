@@ -31,7 +31,7 @@ interface AddTotpFormValues {
 const AddTotpModal = (props: AddTotpModalProps) => {
   //variables
   const isMounted = useRef(true)
-  const getPasswordsTotpAbort = useRef<(reason?: string | undefined) => void>()
+  const getUserPasswordsAbort = useRef<(reason?: string | undefined) => void>()
 
   const { language } = useAppSelector(state => state.appSettings)
   const { loading, success, successMessage, error, errorMessage } = useAppSelector(state => state.createPasswordTotp)
@@ -47,7 +47,7 @@ const AddTotpModal = (props: AddTotpModalProps) => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<AddPasswordSecretFormValues>({
+  } = useForm<AddTotpFormValues>({
     defaultValues: {
       addSecret: '',
     },

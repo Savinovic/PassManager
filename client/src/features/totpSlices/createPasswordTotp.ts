@@ -10,9 +10,8 @@ const createPasswordTotp = createAsyncThunk(
   'passwords/createPasswordTotp',
   async (sendData: createPasswordTotpData, thunkAPI) => {
     try {
-      const { data } = await axiosProtected.post('/passwords/createPasswordTotp', {
+      const { data } = await axiosProtected.post(`/passwords/createPasswordTotp/${sendData.id}`, {
         secret: sendData.secret,
-        password: sendData.password,
       })
       return data
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

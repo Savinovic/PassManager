@@ -8,6 +8,7 @@ import ListedPassword from '../components/profileScreen/ListedPassword'
 import AddPasswordModal from '../components/profileScreen/AddPasswordModal'
 import EditPasswordModal from '../components/profileScreen/EditPasswordModal'
 import ConfirmDeleteModal from '../components/profileScreen/ConfirmDeleteModal'
+import AddTotpModal from '../components/profileScreen/AddTotpModal';
 import Error from '../components/universal/Error'
 import Loader from '../components/universal/Loader'
 import Empty from '../assets/empty.png'
@@ -36,6 +37,16 @@ const ProfileScreen: React.FC = () => {
   const [passwordToEdit, setPasswordToEdit] = useState({ id: '', name: '', password: '' })
   const [confirmDeleteModalIsOpen, setConfirmDeleteModalIsOpen] = useState(false)
   const [passwordToDelete, setPasswordToDelete] = useState({ id: '', name: '' })
+  const [totpCode, setTotpCode] = useState('')
+  const [totpVisible, setTotpVisible] = useState(false)
+  const [totpSecret, setTotpSecretState] = useState(''); // Stato per il segreto TOTP
+  const [isAddTotpModalOpen, setIsAddTotpModalOpen] = useState(false); // Stato per il modal AddTotpModal
+  const [passwordToAddTotp, setPasswordToAddTotp] = useState<{ id: string; name: string; password: string }>({
+    id: '',
+    name: '',
+    password: '',
+  });
+
 
   //handlers
   const filterURL = (searchKeywordFilter: string, sortOrderFilter: string) => {
@@ -181,6 +192,9 @@ const ProfileScreen: React.FC = () => {
         passwordToEdit={passwordToEdit}
         setPasswordToEdit={setPasswordToEdit}
       />
+      
+      
+
       <ConfirmDeleteModal
         isOpen={confirmDeleteModalIsOpen}
         setIsOpen={setConfirmDeleteModalIsOpen}
