@@ -8,6 +8,7 @@ import { getUserPasswordReducer } from './passwordSlices/getUserPassword'
 import { createUserPasswordReducer } from './passwordSlices/createUserPassword'
 import { updateUserPasswordReducer } from './passwordSlices/updateUserPassword'
 import { deleteUserPasswordReducer } from './passwordSlices/deleteUserPassword'
+import { createPasswordTotpReducer } from './totpSlices/createPasswordTotp';
 
 const store: Store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ const store: Store = configureStore({
     createUserPassword: createUserPasswordReducer,
     updateUserPassword: updateUserPasswordReducer,
     deleteUserPassword: deleteUserPasswordReducer,
+    createPasswordTotp: createPasswordTotpReducer,
   },
   devTools: import.meta.env.VITE_APP_ENV === 'production' ? false : true,
 })

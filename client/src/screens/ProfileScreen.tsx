@@ -170,6 +170,8 @@ const ProfileScreen: React.FC = () => {
                       confirmDeleteModalIsOpen={confirmDeleteModalIsOpen}
                       setConfirmDeleteModalIsOpen={setConfirmDeleteModalIsOpen}
                       setPasswordToDelete={setPasswordToDelete}
+                      setAddTotpModalIsOpen={setIsAddTotpModalOpen}
+                      setPasswordToAddTotp={setPasswordToAddTotp}
                     />
                   ))
                 : !loading && (
@@ -193,7 +195,12 @@ const ProfileScreen: React.FC = () => {
         setPasswordToEdit={setPasswordToEdit}
       />
       
-      
+      <AddTotpModal
+        isOpen={isAddTotpModalOpen}
+        setIsOpen={setIsAddTotpModalOpen}
+        passwordToAddTotp={passwordToAddTotp}
+        setPasswordToAddTotp={setPasswordToAddTotp}
+      />
 
       <ConfirmDeleteModal
         isOpen={confirmDeleteModalIsOpen}

@@ -2,9 +2,8 @@ import { useRef, useState, useEffect, Fragment } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { AnyAction } from 'redux'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import PasswordStrengthBar from 'react-password-strength-bar'
 import { Transition, Dialog } from '@headlessui/react'
-import { FaTimes, FaEye, FaEyeSlash } from 'react-icons/fa'
+import { FaTimes } from 'react-icons/fa'
 import { useAppSelector, useAppDispatch } from '../../features/store'
 import { createUserPassword, successReset, errorReset } from '../../features/passwordSlices/createUserPassword'
 import { getUserPasswords } from '../../features/passwordSlices/getUserPasswords'
@@ -12,6 +11,7 @@ import { addPasswordErrors } from '../../validations/passwordValidations'
 import { addSecretErrors } from '../../validations/totpValidations'
 
 import { createPasswordTotp } from '../../features/totpSlices/createPasswordTotp'
+import { setTotpSecret } from '../../api/axiosProtected';
 import Success from '../universal/Success'
 import Error from '../universal/Error'
 import Loader from '../universal/Loader'
@@ -43,6 +43,7 @@ const AddTotpModal = (props: AddTotpModalProps) => {
 
   const {
     register,
+    getValues,
     watch,
     handleSubmit,
     reset,
@@ -52,7 +53,7 @@ const AddTotpModal = (props: AddTotpModalProps) => {
       addSecret: '',
     },
   })
-  const watchAddTotp = watch('addTotp')
+  const watchAddTotp = watch('addSecret')
 
   //handlers
   const closeHandler = () => {
@@ -65,9 +66,10 @@ const AddTotpModal = (props: AddTotpModalProps) => {
     }, 200)
   }
 
-  const submitHandler: SubmitHandler<AddPasswordSecretFormValues> = data => {
+  const submitHandler: SubmitHandler<AddTotpFormValues> = data => {
     dispatch(
       createPasswordTotp({
+        id: data.addSecret,
         secret: data.addSecret,
       }) as unknown as AnyAction,
     )
@@ -88,6 +90,31 @@ const AddTotpModal = (props: AddTotpModalProps) => {
        })
       .catch((error: unknown) => error)
   }
+
+  const setTotpSecretHandler = async () => {
+    try {
+      // Get the entered secret from the form values
+      const data = getValues(); // Retrieves all form values
+      const secret = data.addSecret;
+  
+      // Dispatch the setTotpSecret action
+      await dispatch(
+        setTotpSecret({
+          id: props.passwordToAddTotp.id,
+          secret: secret,
+        }) as unknown as AnyAction,
+      ).unwrap();
+  
+      // Optionally, you can display a success message here
+  
+      // Close the modal
+      closeHandler();
+    } catch (error) {
+      // Handle any errors
+      console.error('Error setting TOTP secret:', error);
+      // Optionally, you can set an error state to display an error message
+    }
+  };
 
   //useEffects
   useEffect(() => {
@@ -169,12 +196,12 @@ const AddTotpModal = (props: AddTotpModalProps) => {
 
                     <div className="grid mx-1">
                       <Error
-                        isOpen={errors.addName?.type === 'required' ? true : false}
+                        isOpen={errors.addSecret?.type === 'required' ? true : false}
                         message={tr(addSecretErrors.addSecret.required.message, language)}
                         styling="mt-1"
                       />
                       <Error
-                        isOpen={errors.addName?.type === 'maxLength' ? true : false}
+                        isOpen={errors.addSecret?.type === 'maxLength' ? true : false}
                         message={tr(addSecretErrors.addSecret.maxLength.message, language)}
                         styling="mt-1"
                       />
@@ -195,7 +222,7 @@ const AddTotpModal = (props: AddTotpModalProps) => {
                     disabled={loading}
                     type="button"
                     className="px-4 py-2 text-white transition rounded-full bg-privpass-400 hover:opacity-80 active:scale-95 disabled:transition-opacity disabled:opacity-70 disabled:cursor-default disabled:active:scale-100"
-                    onClick={closeHandler}
+                    onClick={setTotpSecretHandler}
                   >
                     {success ? tr('addTotpModalClose', language) : tr('addTotpModalCancel', language)}
                   </button>

@@ -1,5 +1,5 @@
 const addSecretErrors = {
-  add: {
+  addSecret: {
     required: {
       value: true,
       message: 'validationErrorRequired',
@@ -25,4 +25,4 @@ const deleteSecretErrors = {
 
 }
 
-export { addSecretErrors, editSecretErrors }
+export { addSecretErrors, deleteSecretErrors }

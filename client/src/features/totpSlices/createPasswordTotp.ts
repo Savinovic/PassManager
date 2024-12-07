@@ -2,8 +2,8 @@ import { createAsyncThunk, Slice, createSlice, PayloadAction } from '@reduxjs/to
 import axiosProtected from '../../api/axiosProtected'
 
 interface createPasswordTotpData {
+  id: string
   secret: string
-  password: string
 }
 
 const createPasswordTotp = createAsyncThunk(

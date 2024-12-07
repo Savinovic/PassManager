@@ -117,7 +117,11 @@ const setTotpSecretForPassword = async (req: Request, res: Response) => {
     const {encryptedSecret, ivS}=encryptSecret(totpSecret)
 
     // Salva il segreto crittografato
-    passwordEntry.totpSecret = encryptedSecret;
+    if (encryptedSecret) {
+      passwordEntry.totpSecret = encryptedSecret;
+    } else {
+      return res.status(400).send({ message: 'Failed to encrypt TOTP secret' });
+    }
     passwordEntry.ivS = ivS;
     await passwordEntry.save();
 

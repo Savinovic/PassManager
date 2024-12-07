@@ -82,6 +82,20 @@ const getTotpSecret = async (passwordId: string) => {
   }
 }
 
+// client/src/api/axiosProtected.ts
+
+export const setTotpSecret = async (passwordId: string, totpSecret: string) => {
+  try {
+    const response = await axiosProtected.post(`/passwords/passwords/${passwordId}/setTotpSecret`, {
+      totpSecret,
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error setting TOTP secret:', error);
+    throw error;
+  }
+};
+
 export const generateTotpCode = async (passwordId: string) => {
   try {
     const response = await axiosProtected.post(`/passwords/passwords/${passwordId}/generateTotp`);

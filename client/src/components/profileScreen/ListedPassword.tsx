@@ -5,7 +5,7 @@ import { RiHashtag, RiLockPasswordFill } from 'react-icons/ri'
 import { FaEye, FaEyeSlash, FaEdit, FaTrashAlt, FaPlus } from 'react-icons/fa'
 import { useAppSelector, useAppDispatch } from '../../features/store'
 import { getUserPassword, idPasswordReset} from '../../features/passwordSlices/getUserPassword'
-import { getTotpSecret, generateTotpCode} from '../../api/axiosProtected'
+import { getTotpSecret, generateTotpCode, setTotpSecret} from '../../api/axiosProtected'
 import { tr } from '../../translations/translations'
 import { totp } from 'otplib'
 
