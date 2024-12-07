@@ -10,7 +10,7 @@ const createPasswordTotp = createAsyncThunk(
   'passwords/createPasswordTotp',
   async (sendData: createPasswordTotpData, thunkAPI) => {
     try {
-      const { data } = await axiosProtected.post(`/passwords/createPasswordTotp/${sendData.id}`, {
+      const { data } = await axiosProtected.put(`/passwords/createPasswordTotp/${sendData.id}`, {
         secret: sendData.secret,
       })
       return data

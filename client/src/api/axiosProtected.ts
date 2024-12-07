@@ -86,7 +86,7 @@ const getTotpSecret = async (passwordId: string) => {
 
 export const setTotpSecret = async (passwordId: string, totpSecret: string) => {
   try {
-    const response = await axiosProtected.post(`/passwords/passwords/${passwordId}/setTotpSecret`, {
+    const response = await axiosProtected.put(`/passwords/passwords/${passwordId}/setTotpSecret`, {
       totpSecret,
     });
     return response.data;

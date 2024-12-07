@@ -11,7 +11,7 @@ import { addPasswordErrors } from '../../validations/passwordValidations'
 import { addSecretErrors } from '../../validations/totpValidations'
 
 import { createPasswordTotp } from '../../features/totpSlices/createPasswordTotp'
-import { setTotpSecret } from '../../api/axiosProtected';
+import { setTotpSecret } from '../../features/totpSlices/setTotpSecret';
 import Success from '../universal/Success'
 import Error from '../universal/Error'
 import Loader from '../universal/Loader'
@@ -66,31 +66,23 @@ const AddTotpModal = (props: AddTotpModalProps) => {
     }, 200)
   }
 
-  const submitHandler: SubmitHandler<AddTotpFormValues> = data => {
-    dispatch(
-      createPasswordTotp({
-        id: data.addSecret,
-        secret: data.addSecret,
-      }) as unknown as AnyAction,
-    )
-      .unwrap()
-      .then(() => {
-        if (isMounted.current) {
-          const getUserPasswordsPromise = dispatch(
-            getUserPasswords({
-              searchKeyword: searchParams.get('searchKeyword') || '',
-              sortOrder: searchParams.get('sortOrder') || 'atoz',
-            }) as unknown as AnyAction,
-         )
-          getUserPasswordsAbort.current = getUserPasswordsPromise.abort
-        } else {
-          dispatch(successReset(null))
-          dispatch(errorReset(null))
-        }
-       })
-      .catch((error: unknown) => error)
-  }
-
+  const submitHandler: SubmitHandler<AddTotpFormValues> = async (data) => {
+    try {
+      await dispatch(
+        setTotpSecret({
+          id: props.passwordToAddTotp.id,
+          secret: data.addSecret,
+        }) as unknown as AnyAction
+      ).unwrap();
+  
+      // Chiudi il modal
+      closeHandler();
+    } catch (error) {
+      console.error('Error setting TOTP secret:', error);
+      // Gestisci l'errore, ad esempio mostrando un messaggio
+    }
+  };
+  
   const setTotpSecretHandler = async () => {
     try {
       // Get the entered secret from the form values
@@ -99,7 +91,10 @@ const AddTotpModal = (props: AddTotpModalProps) => {
   
       // Dispatch the setTotpSecret action
       await dispatch(
-        setTotpSecret(props.passwordToAddTotp.id, secret) as unknown as AnyAction,
+        setTotpSecret({
+          id: props.passwordToAddTotp.id,
+          secret: secret,
+        }) as unknown as AnyAction,
       ).unwrap();
   
       // Optionally, you can display a success message here
