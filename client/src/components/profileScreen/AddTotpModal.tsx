@@ -99,10 +99,7 @@ const AddTotpModal = (props: AddTotpModalProps) => {
   
       // Dispatch the setTotpSecret action
       await dispatch(
-        setTotpSecret({
-          id: props.passwordToAddTotp.id,
-          secret: secret,
-        }) as unknown as AnyAction,
+        setTotpSecret(props.passwordToAddTotp.id, secret) as unknown as AnyAction,
       ).unwrap();
   
       // Optionally, you can display a success message here
@@ -215,6 +212,7 @@ const AddTotpModal = (props: AddTotpModalProps) => {
                     disabled={loading}
                     type="submit"
                     className="px-4 py-2 mr-2 text-white transition rounded-full bg-privpass-400 hover:opacity-80 active:scale-95 disabled:transition-opacity disabled:opacity-70 disabled:cursor-default disabled:active:scale-100"
+                    onClick={setTotpSecretHandler}  
                   >
                     {tr('addTotpModalSubmit', language)}
                   </button>
@@ -222,7 +220,7 @@ const AddTotpModal = (props: AddTotpModalProps) => {
                     disabled={loading}
                     type="button"
                     className="px-4 py-2 text-white transition rounded-full bg-privpass-400 hover:opacity-80 active:scale-95 disabled:transition-opacity disabled:opacity-70 disabled:cursor-default disabled:active:scale-100"
-                    onClick={setTotpSecretHandler}
+                    
                   >
                     {success ? tr('addTotpModalClose', language) : tr('addTotpModalCancel', language)}
                   </button>

@@ -136,150 +136,157 @@ const ListedPassword = (props: ListedPasswordProps) => {
   }, [getUserPasswordAbort1, getUserPasswordAbort2, props.listedPassword._id])
 
   return (
-    <div className="relative flex-auto flex-col justify-between px-3 pt-2 pb-3 shadow-md md:pb-2 rounded-2xl bg-privpass-400 md:flex-row">
-      <div className="flex-1 min-w-0 mb-2 md:mr-4 md:mb-0">
-        <div className="mb-2">
-          <div className="flex items-center text-xs">
-            <RiHashtag className="mr-[2px]" />
-            {tr('listedPassNameLabel', language)}
-          </div>
-          <div className="text-xl font-semibold truncate">{props.listedPassword.name}</div>
-        </div>
+    <div className="relative flex flex-col md:flex-row justify-between items-start px-3 py-2 shadow-md rounded-2xl bg-privpass-400">
+  
+  {/* Sezione Informazioni */}
+  <div className="flex-1 min-w-0 mb-4 md:mr-4 md:mb-0">
+    <div className="mb-2">
+      <div className="flex items-center text-xs">
+        <RiHashtag className="mr-[2px]" />
+        {tr('listedPassNameLabel', language)}
+      </div>
+      <div className="text-xl font-semibold truncate">{props.listedPassword.name}</div>
+    </div>
 
-        <div className="md:mb-[-8px]">
-          <div className="text-xs mb-[-7px] flex items-center">
-            <RiLockPasswordFill className="mr-[2px]" />
-            {tr('listedPassPasswordLabel', language)}
-          </div>
-
-          <div className="flex items-center text-lg">
-            <button
-              disabled={loading || loading2}
-              className="relative flex-none w-8 h-8 p-2 mr-2 transition border rounded-full text-privpass-200 border-privpass-200 hover:border-privpass-100 hover:text-privpass-100 active:scale-95 disabled:hover:border-privpass-200 disabled:hover:text-privpass-200 disabled:cursor-default disabled:active:scale-100"
-              onClick={showPasswordHandler}
-            >
-              <FaEye
-                className={`absolute left-[6px] top-[6px] transition-opacity ${
-                  !passwordVisible ? 'opacity-100' : 'opacity-0'
-                }`}
-              />
-              <FaEyeSlash
-                className={`absolute left-[6px] top-[6px] transition-opacity ${
-                  passwordVisible ? 'opacity-100' : 'opacity-0'
-                }`}
-              />
-            </button>
-            <div className="relative w-full overflow-x-scroll overflow-y-hidden h-14">
-              <Transition
-                className="absolute top-0 left-0 pt-[17px] text-2xl h-14"
-                show={!passwordVisible}
-                enter="ease-out duration-200"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="ease-in duration-100"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
-                {'************'}
-              </Transition>
-              <Transition
-                className="absolute top-0 left-0 h-14 pt-[14px] pb-[6px] select-all tracking-widest monospace-font"
-                show={passwordVisible}
-                enter="ease-out duration-200"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="ease-in duration-100"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
-                {passwordString}
-              </Transition>
-            </div>
-          </div>
-          <div className="md:mb-[-8px]">
-          <div className="text-xs mb-[-7px] flex items-center">
-            <RiLockPasswordFill className="mr-[2px]" />
-            {tr('totpCode', language)}
-          </div>
-
-          <div className="flex items-center text-lg">
-            <button
-              disabled={loading || loading2}
-              className="relative flex-none w-8 h-8 p-2 mr-2 transition border rounded-full text-privpass-200 border-privpass-200 hover:border-privpass-100 hover:text-privpass-100 active:scale-95 disabled:hover:border-privpass-200 disabled:hover:text-privpass-200 disabled:cursor-default disabled:active:scale-100"
-              onClick={getTotpCodeHandler}
-            >
-              <FaEye
-                className={`absolute left-[6px] top-[6px] transition-opacity ${
-                  !totpVisible ? 'opacity-100' : 'opacity-0'
-                }`}
-              />
-              <FaEyeSlash
-                className={`absolute left-[6px] top-[6px] transition-opacity ${
-                  totpVisible ? 'opacity-100' : 'opacity-0'
-                }`}
-              />
-            </button>
-            <div className="relative w-full overflow-x-scroll overflow-y-hidden h-14">
-              <Transition
-                className="absolute top-0 left-0 pt-[17px] text-2xl h-14"
-                show={!totpVisible}
-                enter="ease-out duration-200"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="ease-in duration-100"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
-                {'************'}
-              </Transition>
-              <Transition
-                className="absolute top-0 left-0 h-14 pt-[14px] pb-[6px] select-all tracking-widest monospace-font"
-                show={totpVisible}
-                enter="ease-out duration-200"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="ease-in duration-100"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
-                {totpCode}
-              </Transition>
-            </div>
-          </div>
-        </div>
+    <div className="mb-4">
+      <div className="text-xs flex items-center">
+        <RiLockPasswordFill className="mr-[2px]" />
+        {tr('listedPassPasswordLabel', language)}
       </div>
 
-      <div className="absolute top-3 right-0 flex md:flex-col md:justify-center md:mr-3">
+      <div className="flex items-center text-lg">
         <button
           disabled={loading || loading2}
-          className="flex items-center justify-center w-24 px-4 py-2 mr-2 text-sm transition rounded-full md:mr-0 md:mb-2 bg-cyan-500 hover:bg-cyan-400 active:scale-95 disabled:hover:bg-cyan-500 disabled:cursor-default disabled:active:scale-100"
-          onClick={openEditPasswordModalHandler}
+          className="relative flex-none w-8 h-8 p-2 mr-2 transition border rounded-full text-privpass-200 border-privpass-200 hover:border-privpass-100 hover:text-privpass-100 active:scale-95 disabled:hover:border-privpass-200 disabled:hover:text-privpass-200 disabled:cursor-default disabled:active:scale-100"
+          onClick={showPasswordHandler}
         >
-          <FaEdit className="mr-2" />
-          {tr('listedPassEdit', language)}
+          <FaEye
+            className={`absolute left-[6px] top-[6px] transition-opacity ${
+              !passwordVisible ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+          <FaEyeSlash
+            className={`absolute left-[6px] top-[6px] transition-opacity ${
+              passwordVisible ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
         </button>
-
-        <button
-          disabled={loading || loading2}
-          className="flex items-center justify-center w-24 px-4 py-2 mr-2 text-sm transition rounded-full md:mr-0 md:mb-2 bg-privpass-700 hover:bg-privpass-800 active:scale-95 disabled:hover:bg-privpass-700 disabled:cursor-default disabled:active:scale-100"
-          onClick={openAddTotpModalHandler}
-        >
-          <FaPlus className="mr-2" />
-          {tr('listedPassTotp', language)}
-        </button>
-
-        <button
-          disabled={loading || loading2}
-          className="flex items-center justify-center w-24 px-4 py-2 text-sm transition bg-red-400 rounded-full hover:bg-red-300 active:scale-95 disabled:hover:bg-red-400 disabled:cursor-default disabled:active:scale-100"
-          onClick={openConfirmDeleteModalHandler}
-        >
-          <FaTrashAlt className="mr-2" />
-          {tr('listedPassDelete', language)}
-        </button>
+        <div className="relative w-full overflow-x-auto overflow-y-hidden h-14">
+          <Transition
+            className="absolute top-0 left-0 pt-[17px] text-2xl h-14"
+            show={!passwordVisible}
+            enter="ease-out duration-200"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-100"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            {'************'}
+          </Transition>
+          <Transition
+            className="absolute top-0 left-0 h-14 pt-[14px] pb-[6px] select-all tracking-widest monospace-font"
+            show={passwordVisible}
+            enter="ease-out duration-200"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-100"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            {passwordString}
+          </Transition>
+        </div>
       </div>
     </div>
+
+    {/* Sezione TOTP (condizionale) */}
+    {totpSecret && (
+      <div className="mb-4">
+        <div className="text-xs flex items-center">
+          <RiLockPasswordFill className="mr-[2px]" />
+          {tr('totpCode', language)}
+        </div>
+
+        <div className="flex items-center text-lg">
+          <button
+            disabled={loading || loading2}
+            className="relative flex-none w-8 h-8 p-2 mr-2 transition border rounded-full text-privpass-200 border-privpass-200 hover:border-privpass-100 hover:text-privpass-100 active:scale-95 disabled:hover:border-privpass-200 disabled:hover:text-privpass-200 disabled:cursor-default disabled:active:scale-100"
+            onClick={getTotpCodeHandler}
+          >
+            <FaEye
+              className={`absolute left-[6px] top-[6px] transition-opacity ${
+                !totpVisible ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+            <FaEyeSlash
+              className={`absolute left-[6px] top-[6px] transition-opacity ${
+                totpVisible ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+          </button>
+          <div className="relative w-full overflow-x-auto overflow-y-hidden h-14">
+            <Transition
+              className="absolute top-0 left-0 pt-[17px] text-2xl h-14"
+              show={!totpVisible}
+              enter="ease-out duration-200"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-100"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              {'************'}
+            </Transition>
+            <Transition
+              className="absolute top-0 left-0 h-14 pt-[14px] pb-[6px] select-all tracking-widest monospace-font"
+              show={totpVisible}
+              enter="ease-out duration-200"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-100"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              {totpCode}
+            </Transition>
+          </div>
+        </div>
+      </div>
+    )}
   </div>
-    )
+
+  {/* Sezione Bottoni */}
+  <div className="grid grid-flow-col gap-2 md:grid-flow-row md:gap-2">
+    <button
+      disabled={loading || loading2}
+      className="flex items-center justify-center w-24 px-4 py-2 text-sm transition rounded-full bg-cyan-500 hover:bg-cyan-400 active:scale-95 disabled:hover:bg-cyan-500 disabled:cursor-default disabled:active:scale-100"
+      onClick={openEditPasswordModalHandler}
+    >
+      <FaEdit className="mr-2" />
+      {tr('listedPassEdit', language)}
+    </button>
+
+    <button
+      disabled={loading || loading2}
+      className="flex items-center justify-center w-24 px-4 py-2 text-sm transition rounded-full bg-privpass-700 hover:bg-privpass-800 active:scale-95 disabled:hover:bg-privpass-700 disabled:cursor-default disabled:active:scale-100"
+      onClick={openAddTotpModalHandler}
+    >
+      <FaPlus className="mr-2" />
+      {tr('listedPassTotp', language)}
+    </button>
+
+    <button
+      disabled={loading || loading2}
+      className="flex items-center justify-center w-24 px-4 py-2 text-sm transition bg-red-400 rounded-full hover:bg-red-300 active:scale-95 disabled:hover:bg-red-400 disabled:cursor-default disabled:active:scale-100"
+      onClick={openConfirmDeleteModalHandler}
+    >
+      <FaTrashAlt className="mr-2" />
+      {tr('listedPassDelete', language)}
+    </button>
+  </div>
+</div>
+  )
 }
 
 export default ListedPassword
