@@ -124,7 +124,7 @@ const HomeScreen: React.FC = () => {
             </h3>
           </div>
 
-          <div className="grid gap-6 justify-items-center mb-9 md:grid-cols-2 lg:grid-cols-8">
+          <div className="grid gap-6 justify-items-center mb-9 md:grid-cols-2 grid-rows-2 lg:grid-cols-8">
             <div className="relative mt-20 xl:max-w-sm lg:col-span-3 lg:col-start-2">
               <div className="overflow-hidden bg-white shadow-md rounded-xl">
                 <div className="absolute flex justify-center w-full -mt-20">
@@ -156,7 +156,7 @@ const HomeScreen: React.FC = () => {
                 </div>
               </div>
             </div>
-
+          
             <div className="relative mt-20 xl:max-w-sm lg:col-span-3">
               <div className="overflow-hidden bg-white shadow-md rounded-xl">
                 <div className="absolute flex justify-center w-full -mt-20">
@@ -187,7 +187,8 @@ const HomeScreen: React.FC = () => {
               </div>
             </div>
 
-            <div className="relative mt-20 xl:max-w-sm lg:col-span-3">
+          
+            <div className="relative mt-20 xl:max-w-sm lg:col-start-3">
               <div className="overflow-hidden bg-white shadow-md rounded-xl">
                 <div className="absolute flex justify-center w-full -mt-20">
                   <div className="w-32 h-32">
@@ -217,7 +218,7 @@ const HomeScreen: React.FC = () => {
               </div>
             </div>
 
-            <div className="relative mt-20 xl:max-w-sm lg:col-span-3">
+            <div className="relative mt-20 xl:max-w-sm lg:col-span-5">
               <div className="overflow-hidden bg-white shadow-md rounded-xl">
                 <div className="absolute flex justify-center w-full -mt-20">
                   <div className="w-32 h-32">
