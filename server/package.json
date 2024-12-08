@@ -1,19 +1,19 @@
 {
-  "name": "privpass-server",
+  "name": "lockify-server",
   "version": "1.8.10",
-  "description": "PrivPASS",
+  "description": "Lockify",
   "type": "module",
   "main": "index.ts",
   "scripts": {
     "start": "node dist/index.js",
-    "docker": "cross-env DIR=privpass-server docker-compose -f docker-compose.dev.yml -p privpass-server up --force-recreate",
+    "docker": "cross-env DIR=lockify-server docker-compose -f docker-compose.dev.yml -p lockify-server up --force-recreate",
     "dev": "cross-env ENV=development nodemon --exec tsx src/index.ts",
     "build": "tsc",
     "lint": "eslint . --ignore-path ../.gitignore --ext .js,.ts",
     "format": "prettier --ignore-path ../.gitignore --write \"**/*.+(js|ts)\"",
     "update:all": "corepack up && pnpm update"
   },
-  "author": "Jakub Cieślik",
+  "author": "Rocco Luigi Racamato, Carlo Savino, Alessandro Sedicina & Flavia Ranieri",
   "license": "UNLICENSED",
   "packageManager": "pnpm@9.13.1+sha512.5ac37545851c55ec58521b6c285db6f848f93ca70889beb4145f5b40fe234e4ea4faee4dad12ac5c139e494374c65d9c3a6ec9a25954378fa286a250e68d2f20",
   "dependencies": {

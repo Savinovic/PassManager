@@ -78,7 +78,7 @@ const Header: React.FC = () => {
             className="flex items-center ml-3 text-2xl font-bold text-white md:text-3xl md:ml-7"
             onClick={scrollToTopHandler}
           >
-            PrivPASS <FaUserShield className="ml-2" />
+            Lockify <FaUserShield className="ml-2" />
           </Link>
 
           <div className="flex items-center justify-between gap-3 mr-3">

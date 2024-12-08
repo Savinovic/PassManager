@@ -12,9 +12,9 @@ const Footer: React.FC = () => {
         <p>Copyright © {new Date().getFullYear()}</p>
         <p className="hidden mx-3 font-extralight md:block">|</p>
         <p className="flex items-center mt-2 text-xl font-bold md:mr-2 md:text-base md:mt-0">
-          PrivPASS <FaUserShield className="ml-1" />
+          Lockify <FaUserShield className="ml-1" />
         </p>
-        <p className="mb-2 text-xs italic font-light md:mb-0">by Jakub Cieślik</p>
+        <p className="mb-2 text-xs italic font-light md:mb-0">by Carlo Savino, Rocco Luigi Racamato, Alessandro Sedicina & Flavia Ranieri</p>
         <p className="hidden mx-3 font-extralight md:block">|</p>
         <p>{tr('footer', language)}</p>
       </div>

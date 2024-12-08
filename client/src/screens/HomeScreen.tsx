@@ -4,8 +4,10 @@ import { MdSecurity, MdEmail } from 'react-icons/md'
 import { useAppSelector } from '../features/store'
 import Product from '../assets/product.png'
 import Contact from '../assets/contact.png'
-import Marceljurkiewicz from '../assets/marceljurkiewicz.png'
-import Jakubcieslik from '../assets/jakubcieslik.png'
+import RLRacamato from '../assets/RLRacamato.jpeg'
+import CSavino from '../assets/csavino.png'
+import ASedicina from '../assets/ASedicina.jpeg'
+import FRanieri from '../assets/FRanieri.jpeg'
 import { tr } from '../translations/translations'
 
 const HomeScreen: React.FC = () => {
@@ -128,16 +130,16 @@ const HomeScreen: React.FC = () => {
                 <div className="absolute flex justify-center w-full -mt-20">
                   <div className="w-32 h-32">
                     <img
-                      src={Jakubcieslik}
-                      alt="Jakub Cieślik"
+                      src={CSavino}
+                      alt="Carlo Savino"
                       className="object-cover w-full h-full rounded-full shadow-md"
                     />
                   </div>
                 </div>
                 <div className="px-6 mt-16">
-                  <h1 className="mb-1 text-2xl text-center">Jakub Cieślik</h1>
+                  <h1 className="mb-1 text-2xl text-center">Carlo Savino</h1>
                   <p className="text-sm text-center">
-                    Frontend development, UI/UX, backend development, DB management, deployment
+                    {tr('homeScreenContactCS', language)}
                   </p>
 
                   <div className="flex justify-center w-full pt-5 pb-5">
@@ -147,7 +149,7 @@ const HomeScreen: React.FC = () => {
                     <a href="https://www.linkedin.com/in/jakubcieslik99" target="_blank" rel="noreferrer" className="mx-5">
                       <FaLinkedinIn className="text-2xl text-privpass-400" />
                     </a>
-                    <a href="https://github.com/jakubcieslik99" target="_blank" rel="noreferrer" className="mx-5">
+                    <a href="https://github.com/Savinovic" target="_blank" rel="noreferrer" className="mx-5">
                       <FaGithub className="text-2xl text-privpass-400" />
                     </a>
                   </div>
@@ -160,30 +162,91 @@ const HomeScreen: React.FC = () => {
                 <div className="absolute flex justify-center w-full -mt-20">
                   <div className="w-32 h-32">
                     <img
-                      src={Marceljurkiewicz}
-                      alt="Marcel Jurkiewicz"
+                      src={RLRacamato}
+                      alt="Rocco Luigi Racamato"
                       className="object-cover w-full h-full rounded-full shadow-md"
                     />
                   </div>
                 </div>
                 <div className="px-6 mt-16">
-                  <h1 className="mb-1 text-2xl text-center">Marcel Jurkiewicz</h1>
-                  <p className="text-sm text-center">{tr('homeScreenContactMJ', language)}</p>
+                  <h1 className="mb-1 text-2xl text-center">Rocco Luigi Racamato</h1>
+                  <p className="text-sm text-center">{tr('homeScreenContactRL', language)}</p>
 
                   <div className="flex justify-center w-full pt-5 pb-5">
-                    <a href="mailto:kontakt@marceljurkiewicz.pl" className="mx-5">
+                    <a href="mailto:roccoluigiracamato@gmail.com" className="mx-5">
                       <MdEmail className="text-2xl text-privpass-400" />
                     </a>
                     <a href="https://www.linkedin.com/in/marceljurkiewicz" target="_blank" rel="noreferrer" className="mx-5">
                       <FaLinkedinIn className="text-2xl text-privpass-400" />
                     </a>
-                    <a href="https://github.com/juras99" target="_blank" rel="noreferrer" className="mx-5">
+                    <a href="https://github.com/RR-UniBa" target="_blank" rel="noreferrer" className="mx-5">
                       <FaGithub className="text-2xl text-privpass-400" />
                     </a>
                   </div>
                 </div>
               </div>
             </div>
+
+            <div className="relative mt-20 xl:max-w-sm lg:col-span-3">
+              <div className="overflow-hidden bg-white shadow-md rounded-xl">
+                <div className="absolute flex justify-center w-full -mt-20">
+                  <div className="w-32 h-32">
+                    <img
+                      src={ASedicina}
+                      alt="Alessandro Sedicina"
+                      className="object-cover w-full h-full rounded-full shadow-md"
+                    />
+                  </div>
+                </div>
+                <div className="px-6 mt-16">
+                  <h1 className="mb-1 text-2xl text-center">Alessandro Sedicina</h1>
+                  <p className="text-sm text-center">{tr('homeScreenContactAS', language)}</p>
+
+                  <div className="flex justify-center w-full pt-5 pb-5">
+                    <a href="mailto:roccoluigiracamato@gmail.com" className="mx-5">
+                      <MdEmail className="text-2xl text-privpass-400" />
+                    </a>
+                    <a href="https://www.linkedin.com/in/marceljurkiewicz" target="_blank" rel="noreferrer" className="mx-5">
+                      <FaLinkedinIn className="text-2xl text-privpass-400" />
+                    </a>
+                    <a href="https://github.com/Alesedi" target="_blank" rel="noreferrer" className="mx-5">
+                      <FaGithub className="text-2xl text-privpass-400" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative mt-20 xl:max-w-sm lg:col-span-3">
+              <div className="overflow-hidden bg-white shadow-md rounded-xl">
+                <div className="absolute flex justify-center w-full -mt-20">
+                  <div className="w-32 h-32">
+                    <img
+                      src={FRanieri}
+                      alt="Alessandro Sedicina"
+                      className="object-cover w-full h-full rounded-full shadow-md"
+                    />
+                  </div>
+                </div>
+                <div className="px-6 mt-16">
+                  <h1 className="mb-1 text-2xl text-center">Flavia Ranieri</h1>
+                  <p className="text-sm text-center">{tr('homeScreenContactFR', language)}</p>
+
+                  <div className="flex justify-center w-full pt-5 pb-5">
+                    <a href="mailto:roccoluigiracamato@gmail.com" className="mx-5">
+                      <MdEmail className="text-2xl text-privpass-400" />
+                    </a>
+                    <a href="https://www.linkedin.com/in/marceljurkiewicz" target="_blank" rel="noreferrer" className="mx-5">
+                      <FaLinkedinIn className="text-2xl text-privpass-400" />
+                    </a>
+                    <a href="https://github.com/Alesedi" target="_blank" rel="noreferrer" className="mx-5">
+                      <FaGithub className="text-2xl text-privpass-400" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
 
           <div className="mx-auto w-52 h-52">

@@ -1,6 +1,6 @@
 import { AvailableLanguages, availableLanguages } from '../constants/AppSettings'
 import en from './en.json'
-import pl from './pl.json'
+import it from './it.json'
 
 export const tr = (key: string, language?: AvailableLanguages): string => {
   if (!language) language = (localStorage.getItem('language') as AvailableLanguages) || availableLanguages[0]
@@ -12,7 +12,7 @@ export const tr = (key: string, language?: AvailableLanguages): string => {
       langData = en
       break
     case availableLanguages[1]:
-      langData = pl
+      langData = it
       break
     default:
       langData = en

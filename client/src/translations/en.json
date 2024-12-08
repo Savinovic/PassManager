@@ -1,5 +1,5 @@
 {
-  "title": "PrivPASS - Your safe password manager",
+  "title": "Lockify - Your safe password manager",
 
   "footer": "All rights reserved.",
 
@@ -45,7 +45,7 @@
 
   "confirmDelModalHeader": "Delete",
   "confirmDelModalMessage1": "Are you sure you want to delete password named: ",
-  "confirmDelModalMessage2": "Saved password will be completely deleted form a database and cannot be restored.",
+  "confirmDelModalMessage2": "Saved password will be completely deleted from the database and cannot be restored.",
   "confirmDelModalSubmit": "Delete",
   "confirmDelModalCancel": "Cancel",
   "confirmDelModalClose": "Close",
@@ -70,7 +70,7 @@
   "homeScreenHero1": "Your secure",
   "homeScreenHero2": "password manager",
   "homeScreenButtonMore": "FIND OUT MORE",
-  "homeScreenHeading": "PrivPASS is your secure password manager.",
+  "homeScreenHeading": "Lockify is your secure password manager.",
   "homeScreenSubheading": "From now on, you don't have to remember all of them.",
   "homeScreenTerm1": "Secure login",
   "homeScreenTerm1Message": "Logging in to the website is done using the authentication code sent to the e-mail address provided during registration.",
@@ -82,7 +82,10 @@
   "homeScreenTerm4Message": "In case of any trouble, you can contact us quickly by email. We always respond within a maximum of 24 hours.",
   "homeScreenContactHeading": "Contact us",
   "homeScreenContactSubheading": "We will try to answer your questions",
-  "homeScreenContactMJ": "Presentation, documentation, UI (styling some home screen components)",
+  "homeScreenContactRL": "Frontend development, UI/UX design, deployment",
+  "homeScreenContactCS": "Backend development, DB management, deployment",
+  "homeScreenContactAS": "Review, documentation",
+  "homeScreenContactFR": "Review, documentation",
 
   "profileScreenHeading": "Tools:",
   "profileScreenSearching": "Searching:",
