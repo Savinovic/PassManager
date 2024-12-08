@@ -63,6 +63,7 @@
   "listedPassPasswordLabel": "Password:",
   "listedPassEdit": "Modifica",
   "listedPassDelete": "Elimina",
+  "listedPassTotp": "Aggiungi TOTP",
 
   "notFoundMessage": "Non c'è niente qui!",
 
@@ -96,7 +97,7 @@
   "profileScreenSortingOption3": "Dalle più recenti",
   "profileScreenSortingOption4": "Dalle meno recenti",
   "profileScreenAdding": "Aggiungi:",
-  "profileScreenAddingButton": "Aggiungi una nuova password",
+  "profileScreenAddingButton": "Aggiungi nuova password",
   "profileScreenYourPasswords": "Le tue password:",
   "profileScreenYourPasswordsEmpty": "Nessuna password salvata trovata.",
 
