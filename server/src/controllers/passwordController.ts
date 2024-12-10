@@ -30,7 +30,7 @@ const getUserPasswords = async (req: Request, res: Response) => {
   const userPasswords = await Password.find(query, 'name').sort(sortOrder).exec()
 
   const userPasswordsFinal = userPasswords.map(element => {
-    return { _id: element.id, name: element.name }
+    return { _id: element.id, name: element.name, totpSecret: element.totpSecret }
   })
 
   return res.status(200).send({ passwords: userPasswordsFinal })
@@ -44,7 +44,7 @@ const getUserPassword = async (req: Request, res: Response) => {
 
   const decryptedPassword = decryptPassword({ encryptedPassword: foundPassword.encryptedPassword, iv: foundPassword.iv })
 
-  return res.status(200).send({ _id: foundPassword.id, password: decryptedPassword })
+  return res.status(200).send({ _id: foundPassword.id, password: decryptedPassword , totpSecret: foundPassword.totpSecret})
 }
 // POST - /passwords/createUserPassword
 const createUserPassword = async (req: Request, res: Response) => {

@@ -7,11 +7,12 @@ import { useAppSelector, useAppDispatch } from '../../features/store'
 import { getUserPassword, idPasswordReset} from '../../features/passwordSlices/getUserPassword'
 import { getTotpSecret, generateTotpCode, setTotpSecret} from '../../api/axiosProtected'
 import { tr } from '../../translations/translations'
-import { totp } from 'otplib'
+
 
 export interface ListedPasswordObject {
   _id: string
   name: string
+  totpSecret: string|null
 }
 interface ListedPasswordProps {
   listedPassword: ListedPasswordObject
@@ -118,22 +119,27 @@ const ListedPassword = (props: ListedPasswordProps) => {
 
   //useEffects
   useEffect(() => {
-    let interval: NodeJS.Timeout;
-
-    const fetchAndGenerateTotp = async () => {
+    let isMounted = true; // Per evitare side effects dopo che il componente è smontato
+  
+    const fetchTotpSecret = async () => {
       try {
-        await getTotpCodeHandler();
-        interval = setInterval(getTotpCodeHandler, 30000); // Richiede un nuovo TOTP ogni 30 secondi
+        const getUserPasswordPromise = dispatch(getUserPassword({ id: props.listedPassword._id }) as unknown as AnyAction);
+        const result = await getUserPasswordPromise.unwrap();
+  
+        if (isMounted && result.totpSecret) {
+          setTotpSecretState(result.totpSecret); // Imposta lo stato con il secret
+        }
       } catch (error) {
-        console.error('Error generating TOTP:', error);
+        console.error('Error fetching TOTP secret:', error);
       }
-    };     
-    return () =>  { 
-      getUserPasswordAbort1.current && getUserPasswordAbort1.current()
-      getUserPasswordAbort2.current && getUserPasswordAbort2.current()
-      if (interval) clearInterval(interval);
-    }
-  }, [getUserPasswordAbort1, getUserPasswordAbort2, props.listedPassword._id])
+    };
+  
+    fetchTotpSecret();
+  
+    return () => {
+      isMounted = false; // Cleanup flag
+    };
+  }, [dispatch, props.listedPassword._id]);
 
   return (
     <div className="relative flex flex-col md:flex-row justify-between items-start px-3 py-2 shadow-md rounded-2xl bg-privpass-400">
