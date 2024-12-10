@@ -132,6 +132,27 @@ const setTotpSecretForPassword = async (req: Request, res: Response) => {
   }
 };
 
+// POST - /passwords/:id/removeTotpSecret
+const removeTotpSecretForPassword = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params; // ID della voce di password
+
+    // Trova la voce di password
+    const passwordEntry = await Password.findById(id);
+    if (!passwordEntry) return res.status(404).send({ message: 'Password entry not found' });
+
+    // Imposta il segreto TOTP a null e la stringa IV su vuota
+    passwordEntry.totpSecret = null;
+    passwordEntry.ivS = '';
+    await passwordEntry.save();
+
+    return res.status(200).send({ message: 'TOTP secret removed successfully' });
+  } catch (error) {
+    console.error('Error removing TOTP secret:', error);
+    return res.status(500).send({ message: 'Internal server error' });
+  }
+};
+
 // POST - /passwords/:id/generateTotp
 const generateTotpCode = async (req: Request, res: Response) => {
   try {
