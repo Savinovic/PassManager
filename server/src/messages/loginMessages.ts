@@ -4,7 +4,7 @@ import { tr } from './translations/translations.js'
 
 const loginSendCodeMessage = (to: string, code: string, language: AvailableLanguages) => {
   return {
-    from: `PrivPASS 🔐 <${config.NOREPLY_ADDRESS}>`,
+    from: `Lockify 🔐 <${config.NOREPLY_ADDRESS}>`,
     to,
     subject: `🛡️ ${tr('loginMessageSubject', language)} 🔐`,
     text: `${tr('loginMessageBody', language)} ${code}`,
