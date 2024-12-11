@@ -43,6 +43,14 @@
   "addTotpModalClose": "Close",
   "addTotpModalCancel": "Cancel",
 
+  "listedPassDeleteTotp": "Delete TOTP",
+  "confirmDelTotpModalHeader": "Delete TOTP",
+  "confirmDelTotpModalMessage1": "Are you sure you want to delete TOTP for password named: ",
+  "confirmDelTotpModalMessage2": "Saved TOTP will be completely deleted from the database and cannot be restored.",
+  "confirmDelTotpModalSubmit": "Delete",
+  "confirmDelTotpModalCancel": "Cancel",
+  "confirmDelTotpModalClose": "Close",
+
   "confirmDelModalHeader": "Delete",
   "confirmDelModalMessage1": "Are you sure you want to delete password named: ",
   "confirmDelModalMessage2": "Saved password will be completely deleted from the database and cannot be restored.",

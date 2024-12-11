@@ -9,6 +9,7 @@ import AddPasswordModal from '../components/profileScreen/AddPasswordModal'
 import EditPasswordModal from '../components/profileScreen/EditPasswordModal'
 import ConfirmDeleteModal from '../components/profileScreen/ConfirmDeleteModal'
 import AddTotpModal from '../components/profileScreen/AddTotpModal';
+import ConfirmDeleteTotpModal from '../components/profileScreen/confirmDeleteTotpModal'
 import Error from '../components/universal/Error'
 import Loader from '../components/universal/Loader'
 import Empty from '../assets/empty.png'
@@ -36,7 +37,9 @@ const ProfileScreen: React.FC = () => {
   const [editPasswordModalIsOpen, setEditPasswordModalIsOpen] = useState(false)
   const [passwordToEdit, setPasswordToEdit] = useState({ id: '', name: '', password: '' })
   const [confirmDeleteModalIsOpen, setConfirmDeleteModalIsOpen] = useState(false)
+  const [confirmDeleteTotpModalIsOpen, setConfirmDeleteTotpModalIsOpen] = useState(false)
   const [passwordToDelete, setPasswordToDelete] = useState({ id: '', name: '' })
+  const [passwordToDeleteTotp, setPasswordToDeleteTotp] = useState({ id: '', name: '' })
   const [totpCode, setTotpCode] = useState('')
   const [totpVisible, setTotpVisible] = useState(false)
   const [totpSecret, setTotpSecretState] = useState(''); // Stato per il segreto TOTP
@@ -46,7 +49,7 @@ const ProfileScreen: React.FC = () => {
     name: '',
     password: '',
   });
-
+  
 
   //handlers
   const filterURL = (searchKeywordFilter: string, sortOrderFilter: string) => {
@@ -207,6 +210,13 @@ const ProfileScreen: React.FC = () => {
         setIsOpen={setConfirmDeleteModalIsOpen}
         passwordToDelete={passwordToDelete}
         setPasswordToDelete={setPasswordToDelete}
+      />
+
+      <ConfirmDeleteTotpModal
+        isOpen={confirmDeleteTotpModalIsOpen}
+        setIsOpen={setConfirmDeleteTotpModalIsOpen}
+        passwordToDeleteTotp={passwordToDeleteTotp}
+        setPasswordToDeleteTotp={setPasswordToDeleteTotp}
       />
     </main>
   )

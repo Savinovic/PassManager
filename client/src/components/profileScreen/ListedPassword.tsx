@@ -9,6 +9,7 @@ import { getTotpSecret, generateTotpCode, setTotpSecret} from '../../api/axiosPr
 import { tr } from '../../translations/translations'
 
 
+
 export interface ListedPasswordObject {
   _id: string
   name: string
@@ -22,6 +23,7 @@ interface ListedPasswordProps {
   confirmDeleteModalIsOpen: boolean
   setConfirmDeleteModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>
   setPasswordToDelete: React.Dispatch<React.SetStateAction<{ id: string; name: string }>>
+  setPasswordToDeleteTotp: React.Dispatch<React.SetStateAction<{ id: string; name: string }>>
   setPasswordToAddTotp: React.Dispatch<React.SetStateAction<{ id: string; name: string; password: string }>>
 }
 
@@ -41,6 +43,7 @@ const ListedPassword = (props: ListedPasswordProps) => {
     const [totpVisible, setTotpVisible] = useState(false)
     const [totpSecret, setTotpSecretState] = useState(''); // Stato per il segreto TOTP
     const [isAddTotpModalOpen, setIsAddTotpModalOpen] = useState(false); // Stato per il modal AddTotpModal
+    const [confirmDeleteTotpModalIsOpen, setConfirmDeleteTotpModalIsOpen] = useState(false);
 
   //handlers
   const showPasswordHandler = () => {
@@ -115,6 +118,11 @@ const ListedPassword = (props: ListedPasswordProps) => {
     } catch (error) {
       console.error('Error setting TOTP secret:', error);
     }
+  };
+
+  const openConfirmDeleteTotpModalHandler = () => {
+    props.setPasswordToDeleteTotp({ id: props.listedPassword._id, name: props.listedPassword.name })
+    setConfirmDeleteTotpModalIsOpen(true);
   };
 
   //useEffects
@@ -273,14 +281,25 @@ const ListedPassword = (props: ListedPasswordProps) => {
       {tr('listedPassEdit', language)}
     </button>
 
-    <button
+    {!totpSecret &&(<button
       disabled={loading || loading2}
       className="flex items-center justify-center w-24 px-4 py-2 text-sm transition rounded-full bg-privpass-700 hover:bg-privpass-800 active:scale-95 disabled:hover:bg-privpass-700 disabled:cursor-default disabled:active:scale-100"
       onClick={openAddTotpModalHandler}
     >
       <FaPlus className="mr-2" />
       {tr('listedPassTotp', language)}
-    </button>
+    </button>)}
+
+    {totpSecret && (
+      <button
+        disabled={loading || loading2}
+        className="flex items-center justify-center w-24 px-4 py-2 text-sm transition bg-red-700 rounded-full hover:bg-red-600 active:scale-95 disabled:hover:bg-red-700 disabled:cursor-default disabled:active:scale-100"
+        onClick={openConfirmDeleteTotpModalHandler}
+      >
+        <FaTrashAlt className="mr-2" />
+        {tr('listedPassDeleteTotp', language)}
+      </button>
+    )}
 
     <button
       disabled={loading || loading2}

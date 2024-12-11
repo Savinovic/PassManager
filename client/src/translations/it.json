@@ -43,6 +43,14 @@
   "addTotpModalClose": "Chiudi",
   "addTotpModalCancel": "Cancella",
 
+  "listedPassDeleteTotp": "Elimina TOTP",
+  "confirmDelTotpModalHeader": "Elimina TOTP",
+  "confirmDelTotpModalMessage1": "Sei sicuro di voler eliminare il TOTP per la password: ",
+  "confirmDelTotpModalMessage2": "Il TOTP per questa password sarà cancellato dal database e non potrà essere ripristinato.",
+  "confirmDelTotpModalSubmit": "Elimina",
+  "confirmDelTotpModalCancel": "Cancella",
+  "confirmDelTotpModalClose": "Chiudi",
+
   "confirmDelModalHeader": "Elimina",
   "confirmDelModalMessage1": "Sei sicuro di voler cancellare la password: ",
   "confirmDelModalMessage2": "La password sarà cancellata dal database e non potrà essere ripristinata.",
