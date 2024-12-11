@@ -10,7 +10,7 @@ const getAccessToken = (userId: string, userEmail: string) => {
         email: userEmail,
       },
       config.JWT_ACCESS_TOKEN_SECRET,
-      { expiresIn: '60s' },
+      { expiresIn: '600s' },
       (error, token) => {
         if (error) {
           log.error(error.message)
