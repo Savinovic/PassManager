@@ -177,6 +177,43 @@ const generateTotpCode = async (req: Request, res: Response) => {
   }
 };
 
+// POST - /passwords/generate
+const generatePassword = async (req: Request, res: Response) => {
+  try {
+    const { length = 12, includeNumbers = true, includeSpecial = true, includeUppercase = true } = req.body;
+
+    if (length < 8 || length > 64) {
+      return res.status(400).send({ message: 'Password length must be between 8 and 64 characters' });
+    }
+
+    const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
+    const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const numberChars = '0123456789';
+    const specialChars = '!@#$%^&*()-_=+[]{}|;:,.<>?';
+
+    let characterPool = lowercaseChars;
+    if (includeUppercase) characterPool += uppercaseChars;
+    if (includeNumbers) characterPool += numberChars;
+    if (includeSpecial) characterPool += specialChars;
+
+    if (!characterPool.length) {
+      return res.status(400).send({ message: 'At least one character type must be selected' });
+    }
+
+    let password = '';
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characterPool.length);
+      password += characterPool[randomIndex];
+    }
+
+    log.info('Password generated successfully');
+    return res.status(200).send({ password });
+  } catch (error) {
+    log.error('Error generating password:', error);
+    return res.status(500).send({ message: 'Internal server error' });
+  }
+};
 
 
-export { getUserPasswords, getUserPassword, createUserPassword, updateUserPassword, deleteUserPassword, setTotpSecretForPassword, removeTotpSecretForPassword, generateTotpCode}
+
+export { getUserPasswords, getUserPassword, createUserPassword, updateUserPassword, deleteUserPassword, setTotpSecretForPassword, removeTotpSecretForPassword, generateTotpCode, generatePassword}

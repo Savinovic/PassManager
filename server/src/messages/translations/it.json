@@ -1,0 +1,7 @@
+{
+  "registerMessageSubject": "Conferma il tuo primo accesso a PrivPASS",
+  "registerMessageBody": "Il tuo codice di accesso unico a PrivPASS, valido per 5 minuti, è:",
+
+  "loginMessageSubject": "Conferma il tuo accesso a PrivPASS",
+  "loginMessageBody": "Il tuo codice di accesso unico a PrivPASS, valido per 5 minuti, è:"
+}
