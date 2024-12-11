@@ -1,6 +1,6 @@
 import { AvailableLanguages, availableLanguages } from '../../constants/AvailableLanguages.js'
 import en from './en.json' assert { type: 'json' }
-import pl from './it.json' assert { type: 'json' }
+import it from './it.json' assert { type: 'json' }
 
 export const tr = (key: string, language: AvailableLanguages): string => {
   let langData: { [key: string]: string } = {}
@@ -10,7 +10,7 @@ export const tr = (key: string, language: AvailableLanguages): string => {
       langData = en
       break
     case availableLanguages[1]:
-      langData = pl
+      langData = it
       break
     default:
       langData = en
