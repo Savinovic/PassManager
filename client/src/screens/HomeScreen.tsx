@@ -40,7 +40,7 @@ const HomeScreen: React.FC = () => {
             </div>
           </div>
           <div className="flex items-center justify-center row-span-3 md:col-span-7">
-            <div className="w-full h-full bg-[url('./assets/hero.png')] bg-no-repeat bg-center bg-contain" />
+            <div className="w-full h-full bg-[url('./assets/Lockify.png')] bg-no-repeat bg-center bg-contain" />
           </div>
         </div>
 

@@ -1,6 +1,6 @@
 {
-  "short_name": "PrivPASS",
-  "name": "PrivPASS - Twój bezpieczny menedżer haseł",
+  "short_name": "Lockify",
+  "name": "Lockify - Your safe password manager",
   "icons": [
     {
       "src": "favicon.ico",
