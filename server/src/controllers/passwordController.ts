@@ -9,6 +9,8 @@ import { encryptPassword, decryptPassword, encryptSecret, decryptSecret} from '.
 import { NEW_PASSWORD_ADDED, PASSWORD_UPDATED, PASSWORD_DELETED } from '../constants/SuccessMessages.js'
 import { PASSWORD_DOES_NOT_EXIST, PASSWORD_NAME_ALREADY_EXISTS } from '../constants/ErrorMessages.js'
 
+totp.options = { digits: 6, step: 30 }
+
 // GET - /passwords/getUserPasswords
 const getUserPasswords = async (req: Request, res: Response) => {
   const { authenticatedUser } = res.locals

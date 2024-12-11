@@ -215,7 +215,7 @@ const AddTotpModal = (props: AddTotpModalProps) => {
                     disabled={loading}
                     type="button"
                     className="px-4 py-2 text-white transition rounded-full bg-privpass-400 hover:opacity-80 active:scale-95 disabled:transition-opacity disabled:opacity-70 disabled:cursor-default disabled:active:scale-100"
-                    
+                    onClick={() => !loading && closeHandler()}
                   >
                     {success ? tr('addTotpModalClose', language) : tr('addTotpModalCancel', language)}
                   </button>

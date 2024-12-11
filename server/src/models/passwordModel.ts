@@ -9,7 +9,7 @@ interface Password {
   // timestamps
   createdAt: number
   updatedAt: number
-  totpSecret: string; // Aggiungi questa linea
+  totpSecret: string | null; // Aggiungi questa linea
 
 }
 
