@@ -9,7 +9,7 @@ import AddPasswordModal from '../components/profileScreen/AddPasswordModal'
 import EditPasswordModal from '../components/profileScreen/EditPasswordModal'
 import ConfirmDeleteModal from '../components/profileScreen/ConfirmDeleteModal'
 import AddTotpModal from '../components/profileScreen/AddTotpModal';
-import ConfirmDeleteTotpModal from '../components/profileScreen/confirmDeleteTotpModal'
+import ConfirmDeleteTotpModal from '../components/profileScreen/ConfirmDeleteTotpModal'
 import Error from '../components/universal/Error'
 import Loader from '../components/universal/Loader'
 import Empty from '../assets/empty.png'
@@ -175,6 +175,8 @@ const ProfileScreen: React.FC = () => {
                       setPasswordToDelete={setPasswordToDelete}
                       setAddTotpModalIsOpen={setIsAddTotpModalOpen}
                       setPasswordToAddTotp={setPasswordToAddTotp}
+                      setPasswordToDeleteTotp={setPasswordToDeleteTotp}
+                      setConfirmDeleteTotpModalIsOpen={setConfirmDeleteTotpModalIsOpen}
                     />
                   ))
                 : !loading && (

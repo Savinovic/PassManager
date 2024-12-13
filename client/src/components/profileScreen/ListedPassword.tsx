@@ -25,6 +25,7 @@ interface ListedPasswordProps {
   setPasswordToDelete: React.Dispatch<React.SetStateAction<{ id: string; name: string }>>
   setPasswordToDeleteTotp: React.Dispatch<React.SetStateAction<{ id: string; name: string }>>
   setPasswordToAddTotp: React.Dispatch<React.SetStateAction<{ id: string; name: string; password: string }>>
+  setConfirmDeleteTotpModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const ListedPassword = (props: ListedPasswordProps) => {
@@ -43,7 +44,6 @@ const ListedPassword = (props: ListedPasswordProps) => {
     const [totpVisible, setTotpVisible] = useState(false)
     const [totpSecret, setTotpSecretState] = useState(''); // Stato per il segreto TOTP
     const [isAddTotpModalOpen, setIsAddTotpModalOpen] = useState(false); // Stato per il modal AddTotpModal
-    const [confirmDeleteTotpModalIsOpen, setConfirmDeleteTotpModalIsOpen] = useState(false);
 
   //handlers
   const showPasswordHandler = () => {
@@ -122,7 +122,7 @@ const ListedPassword = (props: ListedPasswordProps) => {
 
   const openConfirmDeleteTotpModalHandler = () => {
     props.setPasswordToDeleteTotp({ id: props.listedPassword._id, name: props.listedPassword.name })
-    setConfirmDeleteTotpModalIsOpen(true);
+    props.setConfirmDeleteTotpModalIsOpen(true);
   };
 
   //useEffects

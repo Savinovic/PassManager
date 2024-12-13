@@ -9,7 +9,7 @@ const removeTotpSecret = createAsyncThunk(
   'passwords/removeTotpSecret',
   async ({ id }: RemoveTotpSecretParams, { rejectWithValue }) => {
     try {
-      const response = await axiosProtected.post(`/passwords/${id}/removeTotpSecret`);
+      const response = await axiosProtected.post(`/passwords/passwords/${id}/removeTotpSecret`);
       return response.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -28,7 +28,7 @@ interface RemoveTotpSecretState {
 }
 
 export const removeTotpSecretSlice: Slice<RemoveTotpSecretState> = createSlice({
-  name: 'passwords/removeTotpSecret',
+  name: 'passwords/passwords/removeTotpSecret',
   initialState: {
     loading: false,
     success: false,
