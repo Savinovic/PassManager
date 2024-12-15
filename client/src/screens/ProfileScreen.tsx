@@ -43,6 +43,7 @@ const ProfileScreen: React.FC = () => {
   const [totpCode, setTotpCode] = useState('')
   const [totpVisible, setTotpVisible] = useState(false)
   const [totpSecret, setTotpSecretState] = useState(''); // Stato per il segreto TOTP
+  const [triggerEffect, setTriggerEffect] = useState(Date.now()); // Stato per triggerare l'effetto di copia del segreto TOTP
   const [isAddTotpModalOpen, setIsAddTotpModalOpen] = useState(false); // Stato per il modal AddTotpModal
   const [passwordToAddTotp, setPasswordToAddTotp] = useState<{ id: string; name: string; password: string }>({
     id: '',
@@ -66,6 +67,15 @@ const ProfileScreen: React.FC = () => {
     setSortOrder(value)
     filterURL(searchKeyword, value)
   }
+
+  const onTotpAdded = () => {
+    setTriggerEffect(Date.now());
+  };
+  
+  const onTotpDeleted = () => {
+    console.log('onTotpDeleted called');
+    setTriggerEffect(Date.now());
+  };
 
   //useEffects
   useEffect(() => {
@@ -168,6 +178,7 @@ const ProfileScreen: React.FC = () => {
                     <ListedPassword
                       key={element._id}
                       listedPassword={element}
+                      triggerEffect={triggerEffect}
                       setEditPasswordModalIsOpen={setEditPasswordModalIsOpen}
                       setPasswordToEdit={setPasswordToEdit}
                       confirmDeleteModalIsOpen={confirmDeleteModalIsOpen}
@@ -205,6 +216,7 @@ const ProfileScreen: React.FC = () => {
         setIsOpen={setIsAddTotpModalOpen}
         passwordToAddTotp={passwordToAddTotp}
         setPasswordToAddTotp={setPasswordToAddTotp}
+        onTotpAdded={onTotpAdded}
       />
 
       <ConfirmDeleteModal
@@ -219,6 +231,7 @@ const ProfileScreen: React.FC = () => {
         setIsOpen={setConfirmDeleteTotpModalIsOpen}
         passwordToDeleteTotp={passwordToDeleteTotp}
         setPasswordToDeleteTotp={setPasswordToDeleteTotp}
+        onTotpDeleted={onTotpDeleted}
       />
     </main>
   )

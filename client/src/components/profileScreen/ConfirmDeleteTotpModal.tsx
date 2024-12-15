@@ -17,6 +17,7 @@ interface ConfirmDeleteTotpModalProps {
   setIsOpen: (isOpen: boolean) => void;
   passwordToDeleteTotp: { id: string; name: string }
   setPasswordToDeleteTotp: React.Dispatch<React.SetStateAction<{ id: string; name: string }>>
+  onTotpDeleted: () => void
 }
 
 const ConfirmDeleteTotpModal = (props: ConfirmDeleteTotpModalProps) => {
@@ -43,7 +44,7 @@ const ConfirmDeleteTotpModal = (props: ConfirmDeleteTotpModalProps) => {
     const submitHandler = (event: React.SyntheticEvent<HTMLElement>) => {
       event.preventDefault()
       dispatch(removeTotpSecret({ id: props.passwordToDeleteTotp.id }) as unknown as AnyAction)
-        .unwrap()
+        .unwrap()   
         .then(() => {
           if (isMounted.current) {
             const getUserPasswordsPromise = dispatch(
@@ -52,12 +53,21 @@ const ConfirmDeleteTotpModal = (props: ConfirmDeleteTotpModalProps) => {
                 sortOrder: searchParams.get('sortOrder') || 'atoz',
               }) as unknown as AnyAction,
             )
+            console.log('TOTP secret deleted')
+            closeHandler();
+            props.onTotpDeleted()
             getUserPasswordsAbort.current = getUserPasswordsPromise.abort
           } else {
             dispatch(successReset(null))
             dispatch(errorReset(null))
+            console.log('TOTP secret deleted')
+            closeHandler();
+            props.onTotpDeleted()
           }
-        })
+          
+        }
+        
+      )
         .catch((error: unknown) => error)
     }
   

@@ -17,6 +17,7 @@ export interface ListedPasswordObject {
 }
 interface ListedPasswordProps {
   listedPassword: ListedPasswordObject
+  triggerEffect: number
   setEditPasswordModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>
   setAddTotpModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>
   setPasswordToEdit: React.Dispatch<React.SetStateAction<{ id: string; name: string; password: string }>>
@@ -125,29 +126,34 @@ const ListedPassword = (props: ListedPasswordProps) => {
     props.setConfirmDeleteTotpModalIsOpen(true);
   };
 
+  let isMounted = true; // Per evitare side effects dopo che il componente è smontato
   //useEffects
   useEffect(() => {
-    let isMounted = true; // Per evitare side effects dopo che il componente è smontato
+    console.log('useEffect in ListedPassword triggered');
+    console.log(props.triggerEffect);
+    
   
-    const fetchTotpSecret = async () => {
-      try {
-        const getUserPasswordPromise = dispatch(getUserPassword({ id: props.listedPassword._id }) as unknown as AnyAction);
-        const result = await getUserPasswordPromise.unwrap();
+  const fetchTotpSecret = async () => {
+    try {
+      const getUserPasswordPromise = dispatch(getUserPassword({ id: props.listedPassword._id }) as unknown as AnyAction);
+       const result = await getUserPasswordPromise.unwrap();
   
-        if (isMounted && result.totpSecret) {
-          setTotpSecretState(result.totpSecret); // Imposta lo stato con il secret
-        }
-      } catch (error) {
-        console.error('Error fetching TOTP secret:', error);
+      if (isMounted && result.totpSecret) {
+        setTotpSecretState(result.totpSecret); // Imposta lo stato con il secret
       }
-    };
+      else {
+        setTotpSecretState(''); // Resetta lo stato se non c'è un secret
+      }
+    } catch (error) {
+      console.error('Error fetching TOTP secret:', error);
+    }
+  };
   
     fetchTotpSecret();
-  
     return () => {
       isMounted = false; // Cleanup flag
     };
-  }, [dispatch, props.listedPassword._id]);
+  }, [dispatch, props.listedPassword._id, props.triggerEffect]);
 
   return (
     <div className="relative flex flex-col md:flex-row justify-between items-start px-3 py-2 shadow-md rounded-2xl bg-privpass-400">
@@ -315,3 +321,4 @@ const ListedPassword = (props: ListedPasswordProps) => {
 }
 
 export default ListedPassword
+

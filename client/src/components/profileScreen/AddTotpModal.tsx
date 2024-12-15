@@ -22,6 +22,7 @@ interface AddTotpModalProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
   passwordToAddTotp: { id: string; name: string; password: string }
   setPasswordToAddTotp: React.Dispatch<React.SetStateAction<{ id: string; name: string; password: string }>>
+  onTotpAdded: () => void
 }
 
 interface AddTotpFormValues {
@@ -74,7 +75,9 @@ const AddTotpModal = (props: AddTotpModalProps) => {
           secret: data.addSecret,
         }) as unknown as AnyAction
       ).unwrap();
-  
+
+      props.onTotpAdded();
+      
       // Chiudi il modal
       closeHandler();
     } catch (error) {
@@ -96,6 +99,7 @@ const AddTotpModal = (props: AddTotpModalProps) => {
           secret: secret,
         }) as unknown as AnyAction,
       ).unwrap();
+      
   
       // Optionally, you can display a success message here
   
