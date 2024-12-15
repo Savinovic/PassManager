@@ -3,7 +3,7 @@ import { TOO_MANY_REQUESTS } from '../constants/ErrorMessages.js'
 
 const rateLimiter = {
   windowMs: 60 * 1000,
-  max: 15,
+  max: 30,
   handler: () => {
     throw createError(429, TOO_MANY_REQUESTS)
   },
