@@ -36,6 +36,8 @@
   "addPassModalClose": "Close",
   "addPassModalCancel": "Cancel",
 
+  "generatePassModalSubmit": "Generate",
+
   "addTotpModalHeader": "Add TOTP",
   "addTotpModalSecret": "Secret:",
   "addTotpModalSecretPlaceholder": "Secret value",

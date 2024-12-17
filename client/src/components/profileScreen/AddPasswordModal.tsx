@@ -247,6 +247,15 @@ const AddPasswordModal = (props: AddPasswordModalProps) => {
                   >
                     {tr('addPassModalSubmit', language)}
                   </button>
+
+                  <button
+                    disabled={loading}
+                    type="submit"
+                    className="px-4 py-2 mr-2 text-white transition rounded-full bg-privpass-400 hover:opacity-80 active:scale-95 disabled:transition-opacity disabled:opacity-70 disabled:cursor-default disabled:active:scale-100"
+                  >
+                    {tr('generatePassModalSubmit', language)}
+                  </button>
+
                   <button
                     disabled={loading}
                     type="button"
