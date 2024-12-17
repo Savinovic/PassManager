@@ -12,7 +12,7 @@ const generateUserPassword = createAsyncThunk(
   'passwords/generate',
   async (params: GeneratePasswordParams, thunkAPI) => {
     try {
-      const response = await axiosProtected.post('/passwords/generate', {
+      const response = await axiosProtected.post('/passwords/passwords/generate', {
         length: params.length,
         includeNumbers: params.includeNumbers,
         includeSpecial: params.includeSpecial,

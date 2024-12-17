@@ -7,6 +7,7 @@ import { Transition, Dialog } from '@headlessui/react'
 import { FaTimes, FaEye, FaEyeSlash } from 'react-icons/fa'
 import { useAppSelector, useAppDispatch } from '../../features/store'
 import { createUserPassword, successReset, errorReset } from '../../features/passwordSlices/createUserPassword'
+import { generateUserPassword } from '../../features/passwordSlices/generateUserPassword'
 import { getUserPasswords } from '../../features/passwordSlices/getUserPasswords'
 import { addPasswordErrors } from '../../validations/passwordValidations'
 import Success from '../universal/Success'
@@ -35,6 +36,11 @@ const AddPasswordModal = (props: AddPasswordModalProps) => {
 
   const [searchParams] = useSearchParams()
 
+  const [passwordLength] = useState(12);
+  const [includeNumbers] = useState(true);
+  const [includeSpecial] = useState(true);
+  const [includeUppercase] = useState(true);
+
   const [passwordToShow, setPasswordToShow] = useState(false)
 
   const {
@@ -43,6 +49,7 @@ const AddPasswordModal = (props: AddPasswordModalProps) => {
     handleSubmit,
     reset,
     formState: { errors },
+    setValue,
   } = useForm<AddPasswordFormValues>({
     defaultValues: {
       addName: '',
@@ -85,6 +92,23 @@ const AddPasswordModal = (props: AddPasswordModalProps) => {
         }
       })
       .catch((error: unknown) => error)
+  }
+
+  const generatePasswordHandler = async () => {
+    try {
+      const response = await dispatch(
+        generateUserPassword({
+          length: passwordLength,
+          includeNumbers,
+          includeSpecial,
+          includeUppercase,
+        }) as unknown as AnyAction
+      ).unwrap();
+      const generatedPassword = response;
+      setValue('addPassword', generatedPassword)
+    } catch (error) {
+      console.error('Error generating password:', error)
+    };
   }
 
   //useEffects
@@ -250,8 +274,9 @@ const AddPasswordModal = (props: AddPasswordModalProps) => {
 
                   <button
                     disabled={loading}
-                    type="submit"
+                    type="button"
                     className="px-4 py-2 mr-2 text-white transition rounded-full bg-privpass-400 hover:opacity-80 active:scale-95 disabled:transition-opacity disabled:opacity-70 disabled:cursor-default disabled:active:scale-100"
+                    onClick={generatePasswordHandler}
                   >
                     {tr('generatePassModalSubmit', language)}
                   </button>
