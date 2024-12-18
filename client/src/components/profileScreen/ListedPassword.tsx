@@ -126,9 +126,10 @@ const ListedPassword = (props: ListedPasswordProps) => {
     props.setConfirmDeleteTotpModalIsOpen(true);
   };
 
-  let isMounted = true; // Per evitare side effects dopo che il componente è smontato
+ 
   //useEffects
   useEffect(() => {
+    let isMounted = true; // Per evitare side effects dopo che il componente è smontato
     console.log('useEffect in ListedPassword triggered');
     console.log(props.triggerEffect);
     
@@ -280,7 +281,7 @@ const ListedPassword = (props: ListedPasswordProps) => {
   <div className="grid grid-flow-col gap-2 md:grid-flow-row md:gap-2">
     <button
       disabled={loading || loading2}
-      className="flex items-center justify-center w-24 px-4 py-2 text-sm transition rounded-full bg-cyan-500 hover:bg-cyan-400 active:scale-95 disabled:hover:bg-cyan-500 disabled:cursor-default disabled:active:scale-100"
+      className="flex items-center justify-center w-27 px-4 py-2 text-sm transition rounded-full bg-cyan-500 hover:bg-cyan-400 active:scale-95 disabled:hover:bg-cyan-500 disabled:cursor-default disabled:active:scale-100"
       onClick={openEditPasswordModalHandler}
     >
       <FaEdit className="mr-2" />
@@ -289,7 +290,7 @@ const ListedPassword = (props: ListedPasswordProps) => {
 
     {!totpSecret &&(<button
       disabled={loading || loading2}
-      className="flex items-center justify-center w-24 px-4 py-2 text-sm transition rounded-full bg-privpass-700 hover:bg-privpass-800 active:scale-95 disabled:hover:bg-privpass-700 disabled:cursor-default disabled:active:scale-100"
+      className="flex items-center justify-center w-27 px-4 py-2 text-sm transition rounded-full bg-privpass-700 hover:bg-privpass-800 active:scale-95 disabled:hover:bg-privpass-700 disabled:cursor-default disabled:active:scale-100"
       onClick={openAddTotpModalHandler}
     >
       <FaPlus className="mr-2" />
@@ -299,7 +300,7 @@ const ListedPassword = (props: ListedPasswordProps) => {
     {totpSecret && (
       <button
         disabled={loading || loading2}
-        className="flex items-center justify-center w-24 px-4 py-2 text-sm transition bg-red-700 rounded-full hover:bg-red-600 active:scale-95 disabled:hover:bg-red-700 disabled:cursor-default disabled:active:scale-100"
+        className="flex items-center justify-center w-27 px-4 py-2 text-sm transition bg-red-700 rounded-full hover:bg-red-600 active:scale-95 disabled:hover:bg-red-700 disabled:cursor-default disabled:active:scale-100"
         onClick={openConfirmDeleteTotpModalHandler}
       >
         <FaTrashAlt className="mr-2" />
@@ -309,7 +310,7 @@ const ListedPassword = (props: ListedPasswordProps) => {
 
     <button
       disabled={loading || loading2}
-      className="flex items-center justify-center w-24 px-4 py-2 text-sm transition bg-red-400 rounded-full hover:bg-red-300 active:scale-95 disabled:hover:bg-red-400 disabled:cursor-default disabled:active:scale-100"
+      className="flex items-center justify-center w-27 px-4 py-2 text-sm transition bg-red-400 rounded-full hover:bg-red-300 active:scale-95 disabled:hover:bg-red-400 disabled:cursor-default disabled:active:scale-100"
       onClick={openConfirmDeleteModalHandler}
     >
       <FaTrashAlt className="mr-2" />
