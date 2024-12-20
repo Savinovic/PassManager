@@ -1,5 +1,5 @@
 import createError from 'http-errors';
-import { log } from '../config/utilities.js';
+import { log, config } from '../config/utilities.js';
 import transporter from '../config/nodemailerOptions.js';
 const sendEmail = (message) => {
     return new Promise((resolve, reject) => {
@@ -10,11 +10,14 @@ const sendEmail = (message) => {
             text: message.text,
             html: message.html,
         };
-        transporter.sendMail(mailOptions, error => {
+        transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
-                log.error(error);
+                console.log(config.GMAIL_ADDRESS);
+                console.log(config.GMAIL_PASSWORD);
+                log.error('Nodemailer Error:', error.message);
                 return reject(createError(500, 'Error during sending an email.'));
             }
+            log.info('Email sent:', info.response);
             return resolve();
         });
     });

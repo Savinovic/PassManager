@@ -6,7 +6,7 @@ const getAccessToken = (userId, userEmail) => {
         jwt.sign({
             id: userId,
             email: userEmail,
-        }, config.JWT_ACCESS_TOKEN_SECRET, { expiresIn: '60s' }, (error, token) => {
+        }, config.JWT_ACCESS_TOKEN_SECRET, { expiresIn: '600s' }, (error, token) => {
             if (error) {
                 log.error(error.message);
                 return reject(createError(500, 'Error during generating an access token.'));

@@ -1,0 +1,6 @@
+{
+    "registerMessageSubject": "Conferma il tuo primo accesso a Lockify",
+    "registerMessageBody": "Il tuo codice di accesso unico a Lockify, valido per 5 minuti, è:",
+    "loginMessageSubject": "Conferma il tuo accesso a Lockify",
+    "loginMessageBody": "Il tuo codice di accesso unico a Lockify, valido per 5 minuti, è:"
+}
