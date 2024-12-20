@@ -40,9 +40,6 @@ const ProfileScreen: React.FC = () => {
   const [confirmDeleteTotpModalIsOpen, setConfirmDeleteTotpModalIsOpen] = useState(false)
   const [passwordToDelete, setPasswordToDelete] = useState({ id: '', name: '' })
   const [passwordToDeleteTotp, setPasswordToDeleteTotp] = useState({ id: '', name: '' })
-  const [totpCode, setTotpCode] = useState('')
-  const [totpVisible, setTotpVisible] = useState(false)
-  const [totpSecret, setTotpSecretState] = useState(''); // Stato per il segreto TOTP
   const [triggerEffect, setTriggerEffect] = useState(Date.now()); // Stato per triggerare l'effetto di copia del segreto TOTP
   const [isAddTotpModalOpen, setIsAddTotpModalOpen] = useState(false); // Stato per il modal AddTotpModal
   const [passwordToAddTotp, setPasswordToAddTotp] = useState<{ id: string; name: string; password: string }>({

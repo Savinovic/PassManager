@@ -5,7 +5,7 @@ import { RiHashtag, RiLockPasswordFill } from 'react-icons/ri'
 import { FaEye, FaEyeSlash, FaEdit, FaTrashAlt, FaPlus } from 'react-icons/fa'
 import { useAppSelector, useAppDispatch } from '../../features/store'
 import { getUserPassword, idPasswordReset} from '../../features/passwordSlices/getUserPassword'
-import { getTotpSecret, generateTotpCode, setTotpSecret} from '../../api/axiosProtected'
+import { generateTotpCode} from '../../api/axiosProtected'
 import { tr } from '../../translations/translations'
 
 
@@ -109,15 +109,6 @@ const ListedPassword = (props: ListedPasswordProps) => {
       console.log('TOTP code:', totpCode);
     } catch (error) {
       console.error('Error generating TOTP code:', error);
-    }
-  };
-
-  const setTotpSecretHandler = async () => {
-    try {
-      const response = await setTotpSecret(props.listedPassword._id, totpSecret);
-      console.log('TOTP secret set successfully:', response);
-    } catch (error) {
-      console.error('Error setting TOTP secret:', error);
     }
   };
 

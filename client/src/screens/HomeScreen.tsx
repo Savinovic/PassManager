@@ -143,11 +143,8 @@ const HomeScreen: React.FC = () => {
                   </p>
 
                   <div className="flex justify-center w-full pt-5 pb-5">
-                    <a href="mailto:contact@jakubcieslik.com" className="mx-5">
+                    <a href="mailto:c.savino4@studenti.poliba.it" className="mx-5">
                       <MdEmail className="text-2xl text-privpass-400" />
-                    </a>
-                    <a href="https://www.linkedin.com/in/jakubcieslik99" target="_blank" rel="noreferrer" className="mx-5">
-                      <FaLinkedinIn className="text-2xl text-privpass-400" />
                     </a>
                     <a href="https://github.com/Savinovic" target="_blank" rel="noreferrer" className="mx-5">
                       <FaGithub className="text-2xl text-privpass-400" />
@@ -176,7 +173,7 @@ const HomeScreen: React.FC = () => {
                     <a href="mailto:roccoluigiracamato@gmail.com" className="mx-5">
                       <MdEmail className="text-2xl text-privpass-400" />
                     </a>
-                    <a href="https://www.linkedin.com/in/marceljurkiewicz" target="_blank" rel="noreferrer" className="mx-5">
+                    <a href="https://www.linkedin.com/in/rocco-luigi-racamato-1601081a2" target="_blank" rel="noreferrer" className="mx-5">
                       <FaLinkedinIn className="text-2xl text-privpass-400" />
                     </a>
                     <a href="https://github.com/RR-UniBa" target="_blank" rel="noreferrer" className="mx-5">
@@ -204,10 +201,10 @@ const HomeScreen: React.FC = () => {
                   <p className="text-sm text-center">{tr('homeScreenContactAS', language)}</p>
 
                   <div className="flex justify-center w-full pt-5 pb-5">
-                    <a href="mailto:roccoluigiracamato@gmail.com" className="mx-5">
+                    <a href="a.sedicina2002@libero.it" className="mx-5">
                       <MdEmail className="text-2xl text-privpass-400" />
                     </a>
-                    <a href="https://www.linkedin.com/in/marceljurkiewicz" target="_blank" rel="noreferrer" className="mx-5">
+                    <a href="https://www.linkedin.com/in/alessandro-sedicina-02239a337" target="_blank" rel="noreferrer" className="mx-5">
                       <FaLinkedinIn className="text-2xl text-privpass-400" />
                     </a>
                     <a href="https://github.com/Alesedi" target="_blank" rel="noreferrer" className="mx-5">
@@ -234,13 +231,13 @@ const HomeScreen: React.FC = () => {
                   <p className="text-sm text-center">{tr('homeScreenContactFR', language)}</p>
 
                   <div className="flex justify-center w-full pt-5 pb-5">
-                    <a href="mailto:roccoluigiracamato@gmail.com" className="mx-5">
+                    <a href="mailto:" className="mx-5">
                       <MdEmail className="text-2xl text-privpass-400" />
                     </a>
-                    <a href="https://www.linkedin.com/in/marceljurkiewicz" target="_blank" rel="noreferrer" className="mx-5">
+                    <a href="https://www.linkedin.com/in/flavia-ranieri-23a858295" target="_blank" rel="noreferrer" className="mx-5">
                       <FaLinkedinIn className="text-2xl text-privpass-400" />
                     </a>
-                    <a href="https://github.com/Alesedi" target="_blank" rel="noreferrer" className="mx-5">
+                    <a href="https://github.com/flaviaaa30" target="_blank" rel="noreferrer" className="mx-5">
                       <FaGithub className="text-2xl text-privpass-400" />
                     </a>
                   </div>

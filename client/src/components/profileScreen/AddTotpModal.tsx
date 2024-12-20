@@ -1,16 +1,13 @@
 import { useRef, useState, useEffect, Fragment } from 'react'
-import { useSearchParams } from 'react-router-dom'
 import { AnyAction } from 'redux'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { Transition, Dialog } from '@headlessui/react'
 import { FaTimes } from 'react-icons/fa'
 import { useAppSelector, useAppDispatch } from '../../features/store'
-import { createUserPassword, successReset, errorReset } from '../../features/passwordSlices/createUserPassword'
-import { getUserPasswords } from '../../features/passwordSlices/getUserPasswords'
-import { addPasswordErrors } from '../../validations/passwordValidations'
+import { successReset, errorReset } from '../../features/passwordSlices/createUserPassword'
 import { addSecretErrors } from '../../validations/totpValidations'
 
-import { createPasswordTotp } from '../../features/totpSlices/createPasswordTotp'
+
 import { setTotpSecret } from '../../features/totpSlices/setTotpSecret';
 import Success from '../universal/Success'
 import Error from '../universal/Error'
@@ -38,14 +35,11 @@ const AddTotpModal = (props: AddTotpModalProps) => {
   const { loading, success, successMessage, error, errorMessage } = useAppSelector(state => state.createPasswordTotp)
   const dispatch = useAppDispatch()
 
-  const [searchParams] = useSearchParams()
-
   const [secretToShow, setSecretToShow] = useState(false)
 
   const {
     register,
     getValues,
-    watch,
     handleSubmit,
     reset,
     formState: { errors },
@@ -54,7 +48,7 @@ const AddTotpModal = (props: AddTotpModalProps) => {
       addSecret: '',
     },
   })
-  const watchAddTotp = watch('addSecret')
+  
 
   //handlers
   const closeHandler = () => {
