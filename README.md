@@ -1,4 +1,4 @@
-## PrivPASS 🔐
+## Lockify 🔐
 
 📌 Simple yet complete OTP accessed password manager app with REST API server, based on the MERN stack. Project contains
 Express.js app as a backend (server) and React app as a frontend (client).
